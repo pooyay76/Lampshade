@@ -2,7 +2,7 @@
 using ShopManagement.Domain.ProductCategoryAgg;
 using Framework.Infrastructure;
 using System.Collections.Generic;
-using ShopManagement.Application.Contracts;
+using ShopManagement.Application.Contracts.ProductCategoryAgg;
 
 namespace ShopManagement.Infrastructure.EfCore.Repository
 {
@@ -13,11 +13,6 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
         public ProductCategoryRepository(ShopContext context) : base(context)
         {
             this.context = context;
-        }
-
-        public long Count()
-        {
-            return context.ProductCategories.Count();
         }
 
         public List<ProductCategoryMinimalViewModel> Search(SearchProductCategoy searchQuery)

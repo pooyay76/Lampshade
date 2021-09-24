@@ -1,0 +1,72 @@
+﻿@model ShopManagement.Application.Contracts.SlideAgg.EditSlide;
+<form class="form-group" method="post" asp-page="./Index" asp-page-handler="Edit"
+      data-ajax="true"
+      data-action="refresh">
+    <div class="row">
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.Title">Title:</label>
+            <input class="form-control" asp-for="@Model.Title" type="text" />
+            <span asp-validation-for="@Model.Title" class="text-muted text-danger"></span>
+        </div>
+
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.Heading">Heading:</label>
+            <input class="form-control disabled" asp-for="@Model.Heading" type="text" />
+            <span asp-validation-for="@Model.Heading" class="text-muted text-danger"></span>
+        </div>
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.Link">Link:</label>
+            <input class="form-control disabled" asp-for="@Model.Link" type="text" />
+            <span asp-validation-for="@Model.Link" class="text-muted text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-10">
+
+        <label class="control-label" asp-for="@Model.Picture">Picture:</label>
+        <input class="form-control" asp-for="@Model.Picture" type="text" />
+        <span asp-validation-for="@Model.Picture" class="text-muted text-danger"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.PictureAlt">Picture Alt:</label>
+            <input class="form-control" asp-for="@Model.PictureAlt" type="text" />
+            <span asp-validation-for="@Model.PictureAlt" class="text-muted text-danger"></span>
+        </div>
+        <div class="col-md-5">
+            <label class="control-label" asp-for="@Model.PictureTitle">Picture Title:</label>
+            <input class="form-control" asp-for="@Model.PictureTitle" type="text" />
+            <span asp-validation-for="@Model.PictureTitle" class="text-muted text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+
+            <label class="control-label" asp-for="@Model.Text">Text:</label>
+            <input type="text" class="form-control" asp-for="@Model.Text" />
+            <span asp-validation-for="@Model.Text" class="text-muted text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.BtnText">Button Text</label>
+            <input class="form-control" asp-for="@Model.BtnText" type="text" />
+            <span asp-validation-for="@Model.BtnText" class="text-muted text-danger"></span>
+        </div>
+        <div class="col-md-5">
+            <label class="control-label" asp-for="@Model.BtnColor">Button Color:</label>
+            <input class="form-control disabled" asp-for="@Model.BtnColor" type="text" />
+            <span asp-validation-for="@Model.BtnColor" class="text-muted text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </div>
+</form>

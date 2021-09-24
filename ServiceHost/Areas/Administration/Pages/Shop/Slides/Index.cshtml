@@ -1,0 +1,70 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Shop.Slides.IndexModel
+@{
+    ViewData["Title"] = "Slides";
+}
+<div class="panel">
+    <div class="panel-heading">
+        <a class="btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; Create</a>
+
+    </div>
+    <div class="panel-body">
+<table class="table table-bordered table-striped" id="datatable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Heading</th>
+            <th>Button</th>
+            <th>Picture</th>
+            <th>Text</th>
+            <th>Operations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Heading</td>
+            <td><button >@item.BtnText</button></td>
+            <td ><img style="max-height:250px;" src="@item.Picture"/></td>
+            <td>@item.Text</td>
+            <td>
+                <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>Edit</a>
+                <a class="btn tbn-sm btn-danger" href="#">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+        
+    </div>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Create Product Category</h5>
+            </div>
+            <div id="modal-body" class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+        <script src="~/AdminTheme/assets/jquery-datatables-editable/jquery.dataTables.js"></script>
+        <script src="~/AdminTheme/assets/jquery-datatables-editable/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#datatable").DataTable();
+            });
+        </script>
+$("#datatable").DataTable();
+}

@@ -1,0 +1,60 @@
+using Framework.Application;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShopManagement.Application.Contracts.SlideAgg;
+using System.Collections.Generic;
+
+namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
+{
+    public class IndexModel : PageModel
+    {
+        private readonly ISlideApplication slideApplication;
+        public List<SlideViewModel> Items { get; set; }
+
+        public IndexModel(ISlideApplication slideApplication)
+        {
+            this.slideApplication = slideApplication;
+        }
+
+        public void OnGet()
+        {
+            Items = slideApplication.List();
+        }
+
+
+        public PartialViewResult OnGetCreate()
+        {
+            return Partial("./Create",new CreateSlide());
+        }
+
+        public JsonResult OnPostCreate(CreateSlide form)
+        {
+            var operation = new OperationResult();
+
+            if (ModelState.IsValid)
+            {
+                return new JsonResult(slideApplication.Create(form));
+            }
+            else
+                return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+        }
+        public IActionResult OnGetEdit(long id)
+        {
+            var operation = new OperationResult();
+            var item = slideApplication.EditGet(id);
+            if (item != null)
+                return Partial("./Edit", item);
+            return new JsonResult(operation.Failed(ApplicationMessages.NotFoundMessage));
+
+        }
+        public JsonResult OnPostEdit(EditSlide form)
+        {
+            var operation = new OperationResult();
+            if (ModelState.IsValid)
+            {
+                return new JsonResult(slideApplication.Edit(form));
+            }
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+        }
+    }
+}

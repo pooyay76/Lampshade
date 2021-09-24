@@ -1,0 +1,68 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Shop.ProductCategories.IndexModel
+@{
+    ViewData["Title"] = "Product Categories";
+}
+<link rel="stylesheet" href="~/AdminTheme/assets/datatables/jquery.dataTables.min.css" />
+<div class="panel">
+    <div class="panel-heading">
+        <a class="btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; Create</a>
+
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped" id="datatable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Picture</th>
+                    <th>Description</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td><img class="img" src="@item.Picture" /></td>
+                        <td>@item.Description</td>
+                        <td class="align-content-center">
+                            <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new {id = item.Id })'>Edit</a>
+                            <a class="btn tbn-sm btn-danger" href="#">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Create Product Category</h5>
+            </div>
+            <div id="modal-body" class="modal-body">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/AdminTheme/assets/datatables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datatable").DataTable();
+        });
+    </script>
+}

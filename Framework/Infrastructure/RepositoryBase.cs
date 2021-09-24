@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 namespace Framework.Infrastructure
 {
     public class RepositoryBase<Tkey, T> : IRepository<Tkey, T> where T : class
+    
     {
         private readonly DbContext context;
 

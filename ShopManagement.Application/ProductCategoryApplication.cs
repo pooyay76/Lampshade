@@ -1,5 +1,5 @@
 ﻿using Framework.Application;
-using ShopManagement.Application.Contracts;
+using ShopManagement.Application.Contracts.ProductCategoryAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace ShopManagement.Application
             var operationResult = new OperationResult();
             if (productCategoryRepository.Exists(x => form.Name == x.Name))
             {
-                return operationResult.Failed("Record already exists");
+                return operationResult.Failed(ApplicationMessages.DuplicatedMessage);
             }
             string slug = form.Name.Slugify();
             var productCategory = new ProductCategory(form.Name, form.Description, form.Picture, form.PictureAlt, form.PictureTitle,
@@ -35,9 +35,7 @@ namespace ShopManagement.Application
             var operationResult = new OperationResult();
             ProductCategory productCategory = productCategoryRepository.Get(form.Id);
             if (productCategory == null)
-                return operationResult.Failed("Could not find the record");
-            if (productCategoryRepository.Exists(x => x.Name == form.Name && x.Id == form.Id))
-                return operationResult.Failed("Record has the same value that you are trying to submit");
+                return operationResult.Failed(ApplicationMessages.NotFoundMessage);
             string slug = form.Name.Slugify();
             productCategory.Edit(form.Name, form.Description, form.Picture, form.PictureAlt,
                 form.PictureTitle, form.Keywords, form.MetaDescription, slug);
@@ -66,7 +64,6 @@ namespace ShopManagement.Application
 
         public ProductCategoryViewModel Get(long id)
         {
-            var count = productCategoryRepository.Count();
             var productCategory = productCategoryRepository.Get(id);
             if (productCategory == null)
                 return null;
@@ -76,15 +73,12 @@ namespace ShopManagement.Application
                 Name = productCategory.Name,
                 Picture = productCategory.Picture,
                 Id = productCategory.Id,
-                ProductsCount = count
             };
         }
 
-        public IEnumerable<ProductCategoryMinimalViewModel> List()
+        public List<ProductCategoryMinimalViewModel> List()
         {
             var result = new List<ProductCategoryMinimalViewModel>();
-            if (productCategoryRepository.Count() == 0)
-                return null;
             productCategoryRepository.List().ToList().ForEach(x=> result.Add( new ProductCategoryMinimalViewModel() 
             {
                 Description = x.Description,
@@ -92,7 +86,7 @@ namespace ShopManagement.Application
                 Name = x.Name,
                 Picture=x.Picture
             }));
-            return result.OrderBy(x=>x.Id);
+            return result.OrderBy(x=>x.Id).ToList();
         }
 
         public List<ProductCategoryMinimalViewModel> Search(SearchProductCategoy searchModel)
@@ -100,9 +94,6 @@ namespace ShopManagement.Application
             return productCategoryRepository.Search(searchModel);
         }
 
-        List<ProductCategoryMinimalViewModel> IProductCategoryApplication.List()
-        {
-            throw new System.NotImplementedException();
-        }
+   
     }
 }

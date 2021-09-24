@@ -1,0 +1,61 @@
+﻿@model ShopManagement.Application.Contracts.ProductCategoryAgg.CreateProductCategory;
+<form class="form-group" method="post" asp-page="./Index" asp-page-handler="Create"
+      data-ajax="true"
+      data-action="refresh">
+    <div class="row">
+        <div class="col-md-5">
+
+            <label class="control-label" asp-for="@Model.Name">Name:</label>
+            <input class="form-control" asp-for="@Model.Name" onchange="makeSlug('Name','Slug')" type="text" />
+            <span asp-validation-for="@Model.Name" class="text-muted text-danger"></span>
+            </div>
+
+            <div class="col-md-5">
+
+                <label class="control-label" asp-for="@Model.Slug">Slug:</label>
+                <input class="form-control disabled" asp-for="@Model.Slug" type="text" />
+                <span asp-validation-for="@Model.Slug" class="text-muted text-danger"></span>
+            </div>
+
+    </div>
+            <div class="col-md-10">
+
+                <label class="control-label" asp-for="@Model.Picture">Picture:</label>
+                <input class="form-control" asp-for="@Model.Picture" type="text" />
+                <span asp-validation-for="@Model.Picture" class="text-muted text-danger"></span>
+                </div>
+
+            <div class="row">
+            <div class="col-md-5">
+
+                <label class="control-label" asp-for="@Model.PictureAlt">Picture Alt:</label>
+                <input class="form-control" asp-for="@Model.PictureAlt" type="text" />
+                <span asp-validation-for="@Model.PictureAlt" class="text-muted text-danger"></span>
+            </div>
+                <div class="col-md-5">
+                    <label class="control-label" asp-for="@Model.PictureTitle">Picture Title:</label>
+                    <input class="form-control" asp-for="@Model.PictureTitle" type="text" />
+                    <span asp-validation-for="@Model.PictureTitle" class="text-muted text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <label class="control-label" asp-for="@Model.Description">Description:</label>
+                <input class="form-control" asp-for="@Model.Description" type="text" onchange="fillField('Description', 'MetaDescription')" />
+                <span asp-validation-for="@Model.Description" class="text-muted text-danger"></span>
+
+            </div>
+
+                <label class="control-label" asp-for="@Model.MetaDescription">Meta Description:</label>
+                <input class="form-control" asp-for="@Model.MetaDescription" type="text" />
+                <span asp-validation-for="@Model.MetaDescription" class="text-muted text-danger"></span>
+
+                <label class="control-label" asp-for="@Model.Keywords">Keywords:</label>
+                <input class="form-control disabled" asp-for="@Model.Keywords" type="text" />
+                <span asp-validation-for="@Model.Keywords" class="text-muted text-danger"></span>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+</form>
