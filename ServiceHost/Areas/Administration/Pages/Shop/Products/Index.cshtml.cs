@@ -1,6 +1,7 @@
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.ProductAgg;
 using ShopManagement.Application.Contracts.ProductCategoryAgg;
 using System.Collections.Generic;
@@ -12,15 +13,19 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
         private readonly IProductApplication productApplication;
         private readonly IProductCategoryApplication productCategoryApplication;
         public List<ProductMinimalViewModel> Items { get; set; }
+        public ProductSearchModel SearchModel { get; set; }
+        public SelectList ProductCategories { get; set; }
+
         public IndexModel(IProductApplication productApplication, IProductCategoryApplication productCategoryApplication)
         {
             this.productApplication = productApplication;
             this.productCategoryApplication = productCategoryApplication;
         }
 
-        public void OnGet()
+        public void OnGet(ProductSearchModel command)
         {
-            Items = productApplication.List();
+            Items = productApplication.Search(command);
+            ProductCategories = new SelectList(productCategoryApplication.List());
         }
         public PartialViewResult OnGetCreate()
         {
@@ -29,15 +34,6 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
                 Categories = productCategoryApplication.List()
             };
             return Partial("./Create",Form);
-        }
-        public JsonResult OnPostCreate(CreateProduct form)
-        {
-            if (ModelState.IsValid)
-            {
-                return new JsonResult(productApplication.Create(form));
-            }
-            else
-                return new JsonResult((new OperationResult()).Failed());
         }
         public PartialViewResult OnGetEdit(long id)
         {
@@ -48,13 +44,19 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             return null;
 
         }
+        public JsonResult OnPostCreate(CreateProduct form)
+        {
+            if (ModelState.IsValid)
+                return new JsonResult(productApplication.Create(form));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+        }
         public JsonResult OnPostEdit(EditProduct form)
         {
             if(ModelState.IsValid)
-            {
                 return new JsonResult(productApplication.Edit(form));
-            }
-            return new JsonResult((new OperationResult()).Failed("Validation Error"));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
         }
     }
 }

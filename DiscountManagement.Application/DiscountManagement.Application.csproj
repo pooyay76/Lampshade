@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DiscountManagement.Application.Contract\DiscountManagement.Application.Contract.csproj" />
+    <ProjectReference Include="..\DiscountManagement.Application.Contract\DiscountManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\DiscountManagement.Domain\DiscountManagement.Domain.csproj" />
   </ItemGroup>
 

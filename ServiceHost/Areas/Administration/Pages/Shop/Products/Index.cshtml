@@ -3,43 +3,77 @@
 @{
     ViewData["Title"] = "Products";
 }
+<link rel="stylesheet" href="~/AdminTheme/assets/datatables/jquery.dataTables.min.css" />
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">جستجو در محصولات</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="get">
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.Name"></label>
+                        <input class="form-control" asp-for="SearchModel.Name" placeholder="نام محصول">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.Code"></label>
+                        <input class="form-control" asp-for="SearchModel.Code" placeholder="کد">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.CategoryId"></label>
+                        <select class="form-control" asp-for="SearchModel.CategoryId" asp-items="Model.ProductCategories">
+                            <option value="0">گروه محصولی ...</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
+                    <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="panel">
     <div class="panel-heading">
-        <a class="btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; Create</a>
+        <a class="btn btn-success" href='#showmodal=@Url.Page("./Index","Create")'><i class="fa fa-plus"></i>&nbsp; ایجاد</a>
 
     </div>
     <div class="panel-body">
-<table class="table table-bordered table-striped" id="datatable">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Picture</th>
-            <th>Description</th>
-            <th>Code</th>
-            <th>Operations</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.CategoryName</td>
-            <td><img class="img" src="@item.Picture" /></td>
-            <td>@item.ShortDescription</td>
-            <td>@item.Code</td>
-            <td>
-                <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>Edit</a>
-                <a class="btn tbn-sm btn-danger" href="#">Delete</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-        
+        <table class="table table-bordered table-striped" id="datatable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام محصول</th>
+                    <th>دسته بندی</th>
+                    <th>عکس</th>
+                    <th>توضیحات</th>
+                    <th>کد محصول</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.CategoryName</td>
+                        <td><img class="img" src="@item.Picture" /></td>
+                        <td>@item.ShortDescription</td>
+                        <td>@item.Code</td>
+                        <td>
+                            <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>
+                            <a class="btn tbn-sm btn-danger" href="#">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
     </div>
 </div>
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -49,7 +83,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title">Create Product Category</h5>
+                <h5 class="modal-title">ایجاد محصول</h5>
             </div>
             <div id="modal-body" class="modal-body">
 
@@ -60,12 +94,12 @@
 </div>
 @section Scripts
 {
-        <script src="~/AdminTheme/assets/jquery-datatables-editable/jquery.dataTables.js"></script>
-        <script src="~/AdminTheme/assets/jquery-datatables-editable/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#datatable").DataTable();
-            }
-        </script>
-$("#datatable").DataTable();
+    <script src="~/AdminTheme/assets/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTheme/assets/datatables/dataTables.bootstrap.js"></script>
+    <script src="~/AdminTheme/assets/datatables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#datatable").DataTable();
+        });
+    </script>
 }

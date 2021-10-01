@@ -11,6 +11,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
     {
         private readonly IProductApplication productApplication;
         private readonly IProductPictureApplication productPictureApplication;
+        public SearchProductPicture SearchModel { get; set; }
         public List<ProductPictureMinimalViewModel> Items { get; set; }
 
         public IndexModel(IProductApplication productApplication, IProductPictureApplication productPictureApplication)
@@ -19,9 +20,10 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             this.productPictureApplication = productPictureApplication;
         }
 
-        public void OnGet()
+        public void OnGet(SearchProductPicture command)
         {
-            Items = productPictureApplication.List();
+            Items = productPictureApplication.Search(command);
+            
         }
         public PartialViewResult OnGetCreate()
         {
@@ -30,15 +32,6 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
                 Products = productApplication.List()
             };
             return Partial("./Create",Form);
-        }
-        public JsonResult OnPostCreate(CreateProductPicture form)
-        {
-            if (ModelState.IsValid)
-            {
-                return new JsonResult(productPictureApplication.Create(form));
-            }
-            else
-                return new JsonResult((new OperationResult()).Failed(ValidationMessages.InvalidModelStateMessage));
         }
         public PartialViewResult OnGetEdit(long id)
         {
@@ -49,13 +42,19 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return null;
 
         }
+        public JsonResult OnPostCreate(CreateProductPicture form)
+        {
+            if (ModelState.IsValid)
+                return new JsonResult(productPictureApplication.Create(form));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+        }
         public JsonResult OnPostEdit(EditProductPicture form)
         {
             if(ModelState.IsValid)
-            {
                 return new JsonResult(productPictureApplication.Edit(form));
-            }
-            return new JsonResult((new OperationResult()).Failed(ValidationMessages.InvalidModelStateMessage));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Framework.Application;
 using ShopManagement.Application.Contracts.ProductPictureAgg;
 using ShopManagement.Domain.ProductPictureAgg;
-using ShopManagement.Infrastructure.EfCore.Repository;
 using System.Collections.Generic;
 
 namespace ShopManagement.Application
@@ -18,10 +17,7 @@ namespace ShopManagement.Application
         public OperationResult Create(CreateProductPicture data)
         {
             var operation = new OperationResult();
-            if (productPictureRepository.Exists(x =>
-             x.Picture == data.Picture &&
-             x.ProductId != data.ProductId
-            ))
+            if (productPictureRepository.Exists(x => x.Picture == data.Picture && x.ProductId != data.ProductId))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
             productPictureRepository.Create(new ProductPicture(data.Picture, data.PictureAlt,
                 data.PictureTitle, data.ProductId));
@@ -33,11 +29,14 @@ namespace ShopManagement.Application
         {
             var operation = new OperationResult();
             var target = productPictureRepository.Get(data.Id);
+
             if (target == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
             if (productPictureRepository.Exists(x => x.Picture == data.Picture && x.Id != data.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
+
             target.Edit(data.Picture, data.PictureAlt, data.PictureTitle, data.ProductId);
+            productPictureRepository.SaveChanges();
             return operation.Succeeded();
         }
 

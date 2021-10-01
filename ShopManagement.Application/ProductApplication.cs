@@ -22,10 +22,10 @@ namespace ShopManagement.Application
             var operation = new OperationResult();
             if (productRepository.Exists(x => x.Name == dataEntry.Name))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
-            var data = new Product(dataEntry.Name, dataEntry.UnitPrice, dataEntry.Description,dataEntry.IsInStock, dataEntry.Picture,
-                dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription,
-                dataEntry.Slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription);
             string slug = dataEntry.Name.Slugify();
+            var data = new Domain.ProductAgg.ProductViewModel(dataEntry.Name, dataEntry.UnitPrice, dataEntry.Description, dataEntry.IsInStock, dataEntry.Picture,
+                dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription,
+                slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription) ;
             productRepository.Create(data);
             productRepository.SaveChanges();
             return operation.Succeeded();
@@ -36,14 +36,13 @@ namespace ShopManagement.Application
             var operation = new OperationResult();
             var entity = productRepository.Get(dataEntry.Id);
             if (entity == null)
-            {
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
-            }
             if (productRepository.Exists(x => x.Name == dataEntry.Name && x.Id != dataEntry.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
+            string slug = dataEntry.Name.Slugify();
             entity.Edit(dataEntry.Name, dataEntry.UnitPrice,dataEntry.IsInStock, dataEntry.Description, dataEntry.Picture,
     dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription,
-    dataEntry.Slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription);
+    slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription);
             productRepository.SaveChanges();
             return operation.Succeeded();
         }
@@ -72,13 +71,13 @@ namespace ShopManagement.Application
             };
         }
 
-        public ProductViewModel Get(long id)
+        public Contracts.ProductAgg.ProductViewModel Get(long id)
         {
            
             var entity = productRepository.Get(id);
             if (entity == null)
                 return null;
-            return new ProductViewModel()
+            return new Contracts.ProductAgg.ProductViewModel()
             {
                 CategoryName = entity.Category.Name,
                 Name = entity.Name,

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace ShopManagement.Domain.ProductAgg
 {
-    public interface IProductRepository:IRepository<long,Product>
+    public interface IProductRepository:IRepository<long,ProductViewModel>
     {
-        public List<Product> Search(ProductSearchModel query);
-        public Product GetProductCategory(long id);
-        public List<Product> ListProductsWithCategories();
+        public List<ProductViewModel> Search(ProductSearchModel query);
+        public ProductViewModel GetProductCategory(long id);
+        public List<ProductViewModel> ListProductsWithCategories();
     }
 }

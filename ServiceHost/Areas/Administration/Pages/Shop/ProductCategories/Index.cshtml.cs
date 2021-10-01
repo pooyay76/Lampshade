@@ -10,28 +10,22 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
     {
         private readonly IProductCategoryApplication productCategoryApplication;
         public List<ProductCategoryMinimalViewModel> Items { get; set; }
+        public SearchProductCategoy SearchModel { get; set; }
+
 
         public IndexModel(IProductCategoryApplication productCategoryApplication)
         {
             this.productCategoryApplication = productCategoryApplication;
         }
 
-        public void OnGet()
+
+        public void OnGet(SearchProductCategoy command)
         {
-            Items = productCategoryApplication.List();
+            Items = productCategoryApplication.Search(command);
         }
         public PartialViewResult OnGetCreate()
         {
             return Partial("./Create",new CreateProductCategory());
-        }
-        public JsonResult OnPostCreate(CreateProductCategory form)
-        {
-            if (ModelState.IsValid)
-            {
-                return new JsonResult(productCategoryApplication.Create(form));
-            }
-            else
-                return new JsonResult((new OperationResult()).Failed());
         }
         public PartialViewResult OnGetEdit(long id)
         {
@@ -41,13 +35,19 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
             return null;
 
         }
+        public JsonResult OnPostCreate(CreateProductCategory form)
+        {
+            if (ModelState.IsValid)
+                return new JsonResult(productCategoryApplication.Create(form));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+        }
         public JsonResult OnPostEdit(EditProductCategory form)
         {
             if(ModelState.IsValid)
-            {
                 return new JsonResult(productCategoryApplication.Edit(form));
-            }
-            return new JsonResult((new OperationResult()).Failed("Validation"));
+            OperationResult operation = new();
+            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
         }
     }
 }

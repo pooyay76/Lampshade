@@ -20,9 +20,50 @@
     <link href="~/Theme/assets/css/style.css" rel="stylesheet">
     <link href="~/Theme/assets/css/Custom.css" rel="stylesheet">
 
+    <style>
+        #navbar-wrapper {
+            display:flex;
+            width: 100%;
+            height: 80px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        #navbar {
+            display: grid;
+            width: 80%;
+            height: 100%;
+            transform: skew(20deg);
+            background-color: #dedede;
+            overflow: hidden;
+        }
+        #navbar-item {
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+        #navbar-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #f3f3f3;
+            line-height: 80px;
+            text-align:center;
+        }
+    </style>
+
 </head>
 
+
+
 <body>
+<div id="navbar-wrapper">
+    <div id="navbar">
+        <div id="navbar-item">
+            <a asp-area="Administration">مدیریت</a>
+        </div>
+    </div>
+</div>
 
 
     @RenderBody()
@@ -56,5 +97,6 @@
 
 
 </body>
+
 
 </html>

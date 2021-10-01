@@ -33,8 +33,7 @@ namespace ShopManagement.Configuration
 
             serviceCollection.AddTransient<ISlideApplication, SlideApplication>();
             serviceCollection.AddTransient<ISlideRepository, SlideRepository>();
-            serviceCollection.AddTransient<ISlideQuery, SlideQuery>()
-                ;
+            serviceCollection.AddTransient<ISlideQuery, SlideQuery>();
 
             serviceCollection.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionString));
 

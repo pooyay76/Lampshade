@@ -344,6 +344,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DiscountManagement.Infrastructure.Configurations\DiscountManagement.Infrastructure.Configurations.csproj" />
     <ProjectReference Include="..\LampshadeQuery\LampshadeQuery.csproj" />
     <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Configuration.csproj" />
   </ItemGroup>
@@ -357,7 +358,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\Administration\Pages\Discounts\" />
   </ItemGroup>
 
 </Project>

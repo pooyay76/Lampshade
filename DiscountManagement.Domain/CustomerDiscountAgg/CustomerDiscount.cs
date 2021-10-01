@@ -10,7 +10,6 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
         public DateTime EndDate { get; private set; }
         public string Reason { get; private set; }
         public decimal DiscountRate { get; private set; }
-        public bool IsActive { get; private set; }
 
         public CustomerDiscount(long productId, DateTime startDate, DateTime endDate, string reason, decimal discountRate)
         {

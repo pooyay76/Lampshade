@@ -18,13 +18,14 @@ namespace ShopManagement.Application
         public OperationResult Create(CreateProductCategory form)
         {
             var operationResult = new OperationResult();
+
             if (productCategoryRepository.Exists(x => form.Name == x.Name))
-            {
                 return operationResult.Failed(ApplicationMessages.DuplicatedMessage);
-            }
+
             string slug = form.Name.Slugify();
             var productCategory = new ProductCategory(form.Name, form.Description, form.Picture, form.PictureAlt, form.PictureTitle,
                 form.Keywords, form.MetaDescription, slug);
+
             productCategoryRepository.Create(productCategory);
             productCategoryRepository.SaveChanges();
             return operationResult.Succeeded();
@@ -32,15 +33,19 @@ namespace ShopManagement.Application
 
         public OperationResult Edit(EditProductCategory form)
         {
-            var operationResult = new OperationResult();
+            var operation= new OperationResult();
+
             ProductCategory productCategory = productCategoryRepository.Get(form.Id);
             if (productCategory == null)
-                return operationResult.Failed(ApplicationMessages.NotFoundMessage);
+                return operation.Failed(ApplicationMessages.NotFoundMessage);
+            if (productCategoryRepository.Exists(x => x.Name == form.Name && x.Id != form.Id))
+                return operation.Failed(ApplicationMessages.DuplicatedMessage);
+
             string slug = form.Name.Slugify();
             productCategory.Edit(form.Name, form.Description, form.Picture, form.PictureAlt,
                 form.PictureTitle, form.Keywords, form.MetaDescription, slug);
-            productCategoryRepository.SaveChanges();
-            return operationResult.Succeeded();
+            productCategoryRepository.SaveChanges(); 
+            return operation.Succeeded();
         }
 
         public EditProductCategory EditGet(long id)

@@ -10,7 +10,7 @@ using ShopManagement.Infrastructure.EfCore;
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210919051701_init")]
+    [Migration("20210927132317_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
