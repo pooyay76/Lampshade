@@ -2,7 +2,7 @@
 {
     public static class ApplicationMessages
     {
-        public const string DuplicatedMessage = "Record Already Exists";
-        public const string NotFoundMessage = "Record Not Found";
+        public const string DuplicatedMessage = "رکورد تکراری است";
+        public const string NotFoundMessage = "رکورد پیدا نشد";
     }
 }

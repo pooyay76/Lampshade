@@ -1,4 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿ // Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 // Write your JavaScript code.
 var SinglePage = {};
@@ -14,14 +14,23 @@ SinglePage.EnableModal = function () {
             return;
         url = url.split("showmodal=")[1];
         $.get(url, null, function (htmlResult) {
-            $("#modal-body").html(htmlResult);
-            const container = document.getElementById("modal-body");
+            $("#modal-wrapper").html(htmlResult);
+            const container = document.getElementById("modal-wrapper");
             const forms = container.getElementsByTagName("form");
             const newForm = forms[forms.length - 1];
             $.validator.unobtrusive.parse(newForm);
             ShowModal();
+            $("#modal").on("shown.bs.modal", function () {
+
+                window.location.hash = "##";
+
+                $('.persian-date-input').persianDatepicker({
+                    format: 'YYYY/MM/DD',
+                    autoClose: true
+                });
+
+            });
         });
-        $("#modal").on("shown.bs.modal", function () { window.location.hash = "##"; });
     };
 };
 

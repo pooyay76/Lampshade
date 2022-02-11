@@ -1,15 +1,13 @@
 ﻿using System;
 
-namespace DiscountManagement.Application.Contract
+namespace DiscountManagement.Application.Contracts.CustomerDiscountAgg
 {
     public class CustomerDiscountSearchModel
     {
         public string Reason { get; set; }
         public long ProductId { get; set; }
-        public string StartDateFa { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string EndDateFa { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public bool IsActive { get; set; }
         public decimal DiscountRate { get; set; }
 

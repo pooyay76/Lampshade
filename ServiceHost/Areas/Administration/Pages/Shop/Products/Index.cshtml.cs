@@ -22,10 +22,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             this.productCategoryApplication = productCategoryApplication;
         }
 
+
         public void OnGet(ProductSearchModel command)
         {
+            SearchModel = command;
             Items = productApplication.Search(command);
-            ProductCategories = new SelectList(productCategoryApplication.List());
+            ProductCategories = new SelectList(productCategoryApplication.List(),"Id","Name");
         }
         public PartialViewResult OnGetCreate()
         {

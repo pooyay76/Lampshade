@@ -1,14 +1,20 @@
 ﻿using Framework.Domain;
-using ShopManagement.Application.Contracts.ProductAgg;
 using ShopManagement.Application.Contracts.ProductCategoryAgg;
+using ShopManagement.Domain.ProductAgg;
 using System.Collections.Generic;
 
 namespace ShopManagement.Domain.ProductCategoryAgg
 {
     public interface IProductCategoryRepository : IRepository<long,ProductCategory>
     {
-        public List<ProductCategoryMinimalViewModel> Search(SearchProductCategoy searchModel);
-        public List<ProductViewModel> GetProducts(long id);
-        public List<ProductCategoryMinimalViewModel> ListProductCategoryWithProducts();
+        public ProductCategory GetProductCategory(long id);
+        public IEnumerable<ProductCategory> GetProductCategories();
+        public IEnumerable<ProductCategory> Search(SearchProductCategoy searchModel);
+        public ProductCategory GetProductCategoryWithProduct(long id);
+        public IEnumerable<ProductCategory> GetProductCategoriesWithProducts();
+        public IEnumerable<Product> GetProducts(long id);
+
+
+
     }
 }

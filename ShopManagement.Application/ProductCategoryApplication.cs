@@ -1,4 +1,5 @@
-﻿using Framework.Application;
+﻿using AutoMapper;
+using Framework.Application;
 using ShopManagement.Application.Contracts.ProductCategoryAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using System.Collections.Generic;
@@ -9,12 +10,21 @@ namespace ShopManagement.Application
     public class ProductCategoryApplication : IProductCategoryApplication
     {
         private readonly IProductCategoryRepository productCategoryRepository;
+        private readonly IMapper mapper;
 
-        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository)
+        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, IMapper mapper)
         {
             this.productCategoryRepository = productCategoryRepository;
+            this.mapper = mapper;
         }
 
+        public ProductCategoryViewModel Get(long id)
+        {
+            var entity = productCategoryRepository.GetProductCategory(id);
+            if (entity == null)
+                return null;
+            return mapper.Map<ProductCategory, ProductCategoryViewModel>(entity);
+        }
         public OperationResult Create(CreateProductCategory form)
         {
             var operationResult = new OperationResult();
@@ -27,76 +37,41 @@ namespace ShopManagement.Application
                 form.Keywords, form.MetaDescription, slug);
 
             productCategoryRepository.Create(productCategory);
-            productCategoryRepository.SaveChanges();
             return operationResult.Succeeded();
         }
-
         public OperationResult Edit(EditProductCategory form)
         {
             var operation= new OperationResult();
 
-            ProductCategory productCategory = productCategoryRepository.Get(form.Id);
-            if (productCategory == null)
+            ProductCategory entity = productCategoryRepository.GetProductCategory(form.Id);
+            if (entity == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
             if (productCategoryRepository.Exists(x => x.Name == form.Name && x.Id != form.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
 
             string slug = form.Name.Slugify();
-            productCategory.Edit(form.Name, form.Description, form.Picture, form.PictureAlt,
+
+            entity.Edit(form.Name, form.Description, form.Picture, form.PictureAlt,
                 form.PictureTitle, form.Keywords, form.MetaDescription, slug);
-            productCategoryRepository.SaveChanges(); 
+
+            productCategoryRepository.Update(entity);
             return operation.Succeeded();
         }
-
         public EditProductCategory EditGet(long id)
         {
-            var productCategory = productCategoryRepository.Get(id);
-            if (productCategory == null)
+            var entity = productCategoryRepository.GetProductCategory(id);
+            if (entity == null)
                 return null;
-            return new EditProductCategory()
-            {
-                Description = productCategory.Description,
-                Id = productCategory.Id,
-                Keywords = productCategory.Keywords,
-                MetaDescription = productCategory.MetaDescription,
-                Name = productCategory.Name,
-                Picture = productCategory.Picture,
-                PictureAlt = productCategory.PictureAlt,
-                PictureTitle = productCategory.PictureTitle,
-                Slug = productCategory.Slug
-            };
-        }
-
-        public ProductCategoryViewModel Get(long id)
-        {
-            var productCategory = productCategoryRepository.Get(id);
-            if (productCategory == null)
-                return null;
-            return new ProductCategoryViewModel()
-            {
-                CreationDate = productCategory.CreationDateTime.ToString(),
-                Name = productCategory.Name,
-                Picture = productCategory.Picture,
-                Id = productCategory.Id,
-            };
+            return mapper.Map<ProductCategory,EditProductCategory>(entity);
         }
 
         public List<ProductCategoryMinimalViewModel> List()
         {
-            var result = new List<ProductCategoryMinimalViewModel>();
-            productCategoryRepository.List().ToList().ForEach(x=> result.Add( new ProductCategoryMinimalViewModel() 
-            {
-                Description = x.Description,
-                Id = x.Id,
-                Name = x.Name,
-                Picture=x.Picture
-            }));
-            return result.OrderBy(x=>x.Id).ToList();
+            return productCategoryRepository.GetProductCategories().Select(x => mapper.Map<ProductCategory, ProductCategoryMinimalViewModel>(x)).ToList();
         }
-
         public List<ProductCategoryMinimalViewModel> Search(SearchProductCategoy searchModel)
         {
-            return productCategoryRepository.Search(searchModel);
+            return productCategoryRepository.Search(searchModel).Select(x => mapper.Map<ProductCategory, ProductCategoryMinimalViewModel>(x)).ToList();
         }
 
    

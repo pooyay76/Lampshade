@@ -8,8 +8,7 @@ namespace ShopManagement.Application.Contracts.ProductCategoryAgg
         public string Name { get; set; }
         public string Description { get; set; }
         public string Picture { get; set; }
-        public string CreationDate { get; set; }
-        public List<string> ProductsNames { get; set; }
+        public string CreationDateTime { get; set; }
     }
 
 }

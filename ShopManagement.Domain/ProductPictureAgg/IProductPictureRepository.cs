@@ -6,8 +6,12 @@ namespace ShopManagement.Domain.ProductPictureAgg
 {
     public interface IProductPictureRepository : IRepository<long,ProductPicture>
     {
-        public List<ProductPictureMinimalViewModel> Search(SearchProductPicture query);
         public ProductPicture GetProductPicture(long id);
-        public List<ProductPictureMinimalViewModel> ListProductPicturesWithProducts();
+        public IEnumerable<ProductPicture> GetProductPictures();
+        public IEnumerable<ProductPicture> Search(SearchProductPicture query);
+
+        public ProductPicture GetProductPictureWithProduct(long id);
+        public IEnumerable<ProductPicture> GetProductPicturesWithProducts();
+
     }
 }

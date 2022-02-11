@@ -9,23 +9,23 @@ namespace DiscountManagement.Domain.CustomerDiscountAgg
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public string Reason { get; private set; }
-        public decimal DiscountRate { get; private set; }
+        public decimal DiscountPercentage { get; private set; }
 
-        public CustomerDiscount(long productId, DateTime startDate, DateTime endDate, string reason, decimal discountRate)
+        public CustomerDiscount(long productId, DateTime startDate, DateTime endDate, string reason, decimal discountPercentage)
         {
             ProductId = productId;
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
-            DiscountRate = discountRate;
+            DiscountPercentage = discountPercentage;
         }
-        public void Edit(long productId, DateTime startDate, DateTime endDate, string reason, decimal discountRate)
+        public void Edit(long productId, DateTime startDate, DateTime endDate, string reason, decimal discountPercentage)
         {
             ProductId = productId;
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
-            DiscountRate = discountRate;
+            DiscountPercentage = discountPercentage;
         }
     }
 }

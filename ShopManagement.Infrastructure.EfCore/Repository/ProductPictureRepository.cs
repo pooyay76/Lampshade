@@ -9,51 +9,42 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
 {
     public class ProductPictureRepository : RepositoryBase<long,ProductPicture>,IProductPictureRepository
     {
-        private readonly ShopContext context;
+        private readonly ShopContext shopContext;
 
-        public ProductPictureRepository(ShopContext context) : base(context)
+        public ProductPictureRepository(ShopContext shopContext) : base(shopContext)
         {
-            this.context = context;
+            this.shopContext = shopContext;
         }
-
         public ProductPicture GetProductPicture(long id)
         {
-            return context.ProductPictures.Include(x => x.Product).FirstOrDefault(x => x.Id == id);
+            return shopContext.ProductPictures.Include(x => x.Product).FirstOrDefault(x => x.Id == id);
 
         }
-
-        public List<ProductPictureMinimalViewModel> ListProductPicturesWithProducts()
+        public ProductPicture GetProductPictureWithProduct(long id)
         {
-            return context.ProductPictures.AsNoTracking()
-                .Include(x=>x.Product)
-                .Select(x => new ProductPictureMinimalViewModel() 
-                {
-                Id = x.Id,
-                Picture=x.Picture,
-                ProductName = x.Product.Name
-                })
-                .OrderByDescending(x=>x.Id)
-                .ToList();
+            return shopContext.ProductPictures.Include(x => x.Product).FirstOrDefault(x => x.Id == id);
 
         }
 
 
-        public List<ProductPictureMinimalViewModel> Search(SearchProductPicture query)
+        public IEnumerable<ProductPicture> GetProductPictures()
+        {
+            return shopContext.ProductPictures.OrderByDescending(x => x.Id);
+        }
+        public IEnumerable<ProductPicture> GetProductPicturesWithProducts()
+        {
+            return shopContext.ProductPictures.Include(x => x.Product).OrderByDescending(x => x.Id);
+        }
+        public IEnumerable<ProductPicture> Search(SearchProductPicture query)
         {
 
-            var items = context.ProductPictures.AsNoTracking()
-                .Include(x=>x.Product)
-                .Select(x=>new ProductPictureMinimalViewModel()
-                {
-                    ProductName = x.Product.Name,
-                    Picture = x.Picture,
-                    Id = x.Id
-                });
-            if (!string.IsNullOrWhiteSpace(query.ProductName))
-                items = items.Where(x => x.ProductName.Contains(query.ProductName));
-            return items
-                .OrderByDescending(x => x.Id)
-                .ToList();
+            IQueryable<ProductPicture> queryable = shopContext.ProductPictures.Include(x => x.Product);
+            if (query.ProductName != null)
+                queryable = queryable.Where(x => x.Product.Name.Contains(query.ProductName));
+
+            return queryable.OrderByDescending(x => x.Id);
         }
+
+
     }
 }

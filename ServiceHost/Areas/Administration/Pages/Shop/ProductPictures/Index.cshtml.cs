@@ -22,8 +22,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 
         public void OnGet(SearchProductPicture command)
         {
-            Items = productPictureApplication.Search(command);
-            
+            SearchModel = command;
+            Items = productPictureApplication.Search(SearchModel);
         }
         public PartialViewResult OnGetCreate()
         {

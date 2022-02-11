@@ -6,6 +6,9 @@ namespace ShopManagement.Domain.SlideAgg
 {
     public interface ISlideRepository:IRepository<long,Slide>
     {
-        public List<SlideViewModel> Search(SearchSlide slide);
+        public Slide GetSlide(long id);
+
+        public IEnumerable<Slide> Search(SearchSlide slide);
+        public IEnumerable<Slide> GetSlides();
     }
 }

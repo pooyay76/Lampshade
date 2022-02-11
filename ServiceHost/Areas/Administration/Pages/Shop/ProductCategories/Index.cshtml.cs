@@ -15,13 +15,15 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
 
         public IndexModel(IProductCategoryApplication productCategoryApplication)
         {
+
             this.productCategoryApplication = productCategoryApplication;
         }
 
 
         public void OnGet(SearchProductCategoy command)
         {
-            Items = productCategoryApplication.Search(command);
+            SearchModel = command;
+            Items = productCategoryApplication.Search(SearchModel);
         }
         public PartialViewResult OnGetCreate()
         {

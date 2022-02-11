@@ -10,6 +10,7 @@
         public string Title { get; set; }
         public string Text { get; set; }
         public string BtnText { get; set; }
+        public string CreationDateTime { get; set; }
         public string BtnColor { get; set; }
         public string Link { get; set; }
 

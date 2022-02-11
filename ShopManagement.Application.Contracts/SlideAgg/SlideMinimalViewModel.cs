@@ -6,6 +6,7 @@
         public string Title { get; set; }
         public string Heading { get; set; }
         public string Picture { get; set; }
+        public string CreationDateTime { get; set; }
         public string Link { get; set; }
 
     }

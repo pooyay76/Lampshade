@@ -1,5 +1,4 @@
 ﻿using Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.SlideAgg;
 using ShopManagement.Domain.SlideAgg;
 using System.Collections.Generic;
@@ -16,30 +15,29 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             this.context = context;
         }
 
-            public List<SlideViewModel> Search(SearchSlide query)
+        public Slide GetSlide(long id)
         {
-            var items = context.Slides.AsNoTracking().Select(x => new SlideViewModel() 
-            {
-            Link = x.Link,
-            BtnColor = x.BtnColor,
-            BtnText = x.BtnText,
-            Heading = x.Heading,
-            Id = x.Id,
-            Picture = x.Picture,
-            PictureAlt = x.PictureAlt,
-            PictureTitle = x.PictureTitle,
-            Text = x.Text,
-            Title = x.Title
-            });
+            return context.Slides.FirstOrDefault(x => x.Id == id);
+        }
 
-            if (!string.IsNullOrWhiteSpace(query.Text))
-                items.Where(x => x.Text.Contains(query.Text));
+        public IEnumerable<Slide> GetSlides()
+        {
+            return context.Slides;
+        }
+
+        public IEnumerable<Slide> Search(SearchSlide query)
+        {
+            IQueryable<Slide> items = context.Slides;
+
             if (!string.IsNullOrWhiteSpace(query.Title))
-                items.Where(x => x.Text.Contains(query.Title));
+                items=items.Where(x => x.Text.Contains(query.Title));
             if (!string.IsNullOrWhiteSpace(query.Heading))
-                items.Where(x => x.Text.Contains(query.Heading));
-            return items.ToList();
+                items=items.Where(x => x.Text.Contains(query.Heading));
+
+            return items.OrderByDescending(x=>x.Id);
 
         }
+
+
     }
 }

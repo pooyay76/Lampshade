@@ -43,7 +43,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DM.Infrastructure", "DM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Infrastructure.EfCore", "DiscountManagement.Infrastructure.EfCore\DiscountManagement.Infrastructure.EfCore.csproj", "{4F36AED0-17A9-4F72-8395-99724BDDEA69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscountManagement.Infrastructure.Configurations", "DiscountManagement.Infrastructure.Configurations\DiscountManagement.Infrastructure.Configurations.csproj", "{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscountManagement.Infrastructure.Configurations", "DiscountManagement.Infrastructure.Configurations\DiscountManagement.Infrastructure.Configurations.csproj", "{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InventoryManagement", "InventoryManagement", "{69FB376C-233B-4401-ACF6-43D0E5FCEAD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IM.Domain", "IM.Domain", "{7546C0DA-EA23-44AB-B60C-7D060FF2421A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Domain", "InventoryManagement.Domain\InventoryManagement.Domain.csproj", "{92101F96-23CD-423C-AA1D-39CFD983DB3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IM.Application", "IM.Application", "{F10DB079-4FC7-4FAD-BA35-98C6D5E4F6F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagement.Application.Contracts", "InventoryManagement.Application.Contracts\InventoryManagement.Application.Contracts.csproj", "{3CC45DC7-684A-4FE0-BBA7-213479D4026F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +113,14 @@ Global
 		{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92101F96-23CD-423C-AA1D-39CFD983DB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92101F96-23CD-423C-AA1D-39CFD983DB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92101F96-23CD-423C-AA1D-39CFD983DB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92101F96-23CD-423C-AA1D-39CFD983DB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC45DC7-684A-4FE0-BBA7-213479D4026F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC45DC7-684A-4FE0-BBA7-213479D4026F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC45DC7-684A-4FE0-BBA7-213479D4026F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC45DC7-684A-4FE0-BBA7-213479D4026F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +142,10 @@ Global
 		{DE356758-D89B-4562-8B44-AB0F87770A7C} = {AC991C79-0479-4EDD-B592-7378D1F4BAB6}
 		{4F36AED0-17A9-4F72-8395-99724BDDEA69} = {DE356758-D89B-4562-8B44-AB0F87770A7C}
 		{2780FC48-0FF3-48D1-BAC7-76D8E40A81E6} = {DE356758-D89B-4562-8B44-AB0F87770A7C}
+		{7546C0DA-EA23-44AB-B60C-7D060FF2421A} = {69FB376C-233B-4401-ACF6-43D0E5FCEAD6}
+		{92101F96-23CD-423C-AA1D-39CFD983DB3D} = {7546C0DA-EA23-44AB-B60C-7D060FF2421A}
+		{F10DB079-4FC7-4FAD-BA35-98C6D5E4F6F1} = {69FB376C-233B-4401-ACF6-43D0E5FCEAD6}
+		{3CC45DC7-684A-4FE0-BBA7-213479D4026F} = {F10DB079-4FC7-4FAD-BA35-98C6D5E4F6F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C18791-0041-4A1C-A85F-F72F259E11B2}

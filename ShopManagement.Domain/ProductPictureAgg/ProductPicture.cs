@@ -1,4 +1,5 @@
-﻿using Framework.Domain;
+﻿using Framework.Application;
+using Framework.Domain;
 using ShopManagement.Domain.ProductAgg;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +11,7 @@ namespace ShopManagement.Domain.ProductPictureAgg
         public string Picture { get; private set; }
         public string PictureAlt { get; private set; }
         public string PictureTitle { get; private set; }
-        public ProductViewModel Product { get; private set; }
+        public Product Product { get; private set; }
         [Required(ErrorMessage = ValidationMessages.RequiredMessage)]
         public long ProductId { get; private set; }
 

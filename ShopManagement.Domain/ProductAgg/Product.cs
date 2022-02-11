@@ -2,37 +2,28 @@
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ShopManagement.Domain.ProductAgg
 {
-    public class ProductViewModel : EntityBase
+    public class Product : EntityBase
     {
-        [Required(ErrorMessage = ValidationMessages.RequiredMessage,AllowEmptyStrings =false)]
         public string Name { get; private set; }
 
 
-        [Range(0, (float)(decimal.MaxValue),ErrorMessage = ValidationMessages.NotInRangeMessage)]
-        [Required(ErrorMessage =ValidationMessages.RequiredMessage)]
         public decimal UnitPrice { get; private set; }
 
 
-        [Required(ErrorMessage =ValidationMessages.RequiredMessage)]
         public bool IsInStock { get; private set; }
 
-        [Required(ErrorMessage =ValidationMessages.RequiredMessage)]
         public string Code { get; private set; }
 
-        [Required(ErrorMessage = ValidationMessages.RequiredMessage,AllowEmptyStrings =false)]
         public string Description { get; private set; }
 
 
-        [Required(ErrorMessage = ValidationMessages.RequiredMessage,AllowEmptyStrings =false)]
         public string Picture { get; private set; }
 
         //Product Category
-        [Range(0,long.MaxValue,ErrorMessage =ValidationMessages.NotInRangeMessage)]
-        [Required(ErrorMessage = ValidationMessages.RequiredMessage)]
+
         public long CategoryId { get; private set; }
         public ProductCategory Category { get; private set; }
 
@@ -41,7 +32,6 @@ namespace ShopManagement.Domain.ProductAgg
 
 
         //SEO
-        [Required(ErrorMessage = ValidationMessages.RequiredMessage)]
         public string Slug { get; private set; }
 
         public string ShortDescription { get; private set; }
@@ -51,7 +41,7 @@ namespace ShopManagement.Domain.ProductAgg
         public string MetaDescription { get; private set; }
 
 
-        public ProductViewModel(string name, decimal unitPrice,string description, bool isInStock,
+        public Product(string name, decimal unitPrice,string description, bool isInStock,
             string picture, string pictureAlt, string pictureTitle, string keywords, string metaDescription,
             string slug, long categoryId, string code, string shortDescription)
         {

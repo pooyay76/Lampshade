@@ -1,4 +1,5 @@
-﻿using Framework.Domain;
+﻿using Framework.Application;
+using Framework.Domain;
 using ShopManagement.Domain.ProductAgg;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,7 +20,7 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         public string MetaDescription { get; private set; }
         [Required(ErrorMessage = ValidationMessages.RequiredMessage)]
         public string Slug { get; private set; }
-        public List<ProductViewModel> Products { get; private set; }
+        public List<Product> Products { get; private set; }
 
         public ProductCategory(string name, string description,string picture, string pictureAlt, 
             string pictureTitle, string keywords, string metaDescription, string slug)

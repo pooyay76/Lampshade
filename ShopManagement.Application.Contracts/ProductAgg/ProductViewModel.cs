@@ -13,5 +13,6 @@
         public string ShortDescription { get; set; }
         public string Keywords { get; set; }
         public string CategoryName { get; set; }
+        public string CreationDateTime { get; set; }
     }
 }

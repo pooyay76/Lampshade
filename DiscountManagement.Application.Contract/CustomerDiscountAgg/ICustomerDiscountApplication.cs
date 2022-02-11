@@ -1,7 +1,7 @@
 ﻿using Framework.Application;
 using System.Collections.Generic;
 
-namespace DiscountManagement.Application.Contract
+namespace DiscountManagement.Application.Contracts.CustomerDiscountAgg
 {
     public interface ICustomerDiscountApplication
     {

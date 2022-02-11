@@ -21,6 +21,7 @@ namespace ShopManagement.Configuration
     {
         public static void Configure(IServiceCollection serviceCollection,string connectionString)
         {
+
             serviceCollection.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             serviceCollection.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
             serviceCollection.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();

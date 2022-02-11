@@ -1,9 +1,9 @@
 ﻿using _0_Framework.Application;
-using DiscountManagement.Application.Contract;
+using DiscountManagement.Application.Contracts.CustomerDiscountAgg;
 using DiscountManagement.Domain.CustomerDiscountAgg;
 using Framework.Application;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DiscountManagement.Application
 {
@@ -11,15 +11,16 @@ namespace DiscountManagement.Application
     {
         private readonly ICustomerDiscountRepository customerDiscountRepository;
 
-        public CustomerDiscountApplication(ICustomerDiscountRepository repository)
+        public CustomerDiscountApplication(ICustomerDiscountRepository customerDiscountRepository)
         {
-            this.customerDiscountRepository = repository;
+            this.customerDiscountRepository = customerDiscountRepository;
         }
 
         public OperationResult Define(DefineCustomerDiscount command)
         {
             OperationResult operation = new();
-            var data = new CustomerDiscount(command.ProductId, DateTime.Parse(command.StartDate), DateTime.Parse(command.EndDate), command.Reason, command.DiscountRate);
+            var x = command.StartDate.ToGeorgianDateTime();
+            var data = new CustomerDiscount(command.ProductId, command.StartDate.ToGeorgianDateTime(),command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountRate);
             if (customerDiscountRepository.Exists(x => x.StartDate == data.StartDate && x.EndDate == data.EndDate && x.Reason == data.Reason))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
@@ -32,12 +33,18 @@ namespace DiscountManagement.Application
         {
             OperationResult operation = new();
             var data = customerDiscountRepository.Get(command.Id);
+
             if (data == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
-            if (customerDiscountRepository.Exists(x => x.StartDate == command.StartDate.ToGeorgianDateTime() && x.EndDate == command.EndDate.ToGeorgianDateTime() && x.Reason == command.Reason))
+
+            if (customerDiscountRepository.Exists(x => x.StartDate == command.StartDate.ToGeorgianDateTime() 
+            && x.EndDate == command.EndDate.ToGeorgianDateTime() && x.Reason == command.Reason && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
-            data.Edit(command.ProductId, DateTime.Parse(command.StartDate), DateTime.Parse(command.EndDate), command.Reason, command.DiscountRate);
-            customerDiscountRepository.SaveChanges();
+
+            data.Edit(command.ProductId, command.StartDate.ToGeorgianDateTime(), command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountRate);
+
+            customerDiscountRepository.Update(data);
+
             return operation.Succeeded();
         }
 
@@ -46,18 +53,18 @@ namespace DiscountManagement.Application
             var data = customerDiscountRepository.Get(id);
             return new EditCustomerDiscount
             {
+                DiscountRate = data.DiscountPercentage,
+                EndDate = data.EndDate.ToFarsi(),
                 Id = data.Id,
                 ProductId = data.ProductId,
                 Reason = data.Reason,
-                DiscountRate = data.DiscountRate,
-                StartDate = data.StartDate.ToString(),
-                EndDate = data.EndDate.ToString(),
+                StartDate = data.StartDate.ToFarsi()
             };
         }
 
         public List<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel command)
         {
-            return customerDiscountRepository.Search(command);
+            return customerDiscountRepository.Search(command).ToList();
         }
 
     }

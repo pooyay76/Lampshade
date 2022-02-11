@@ -10,15 +10,17 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
     {
         private readonly ISlideApplication slideApplication;
         public List<SlideViewModel> Items { get; set; }
+        public SearchSlide SearchModel { get; set; }
 
         public IndexModel(ISlideApplication slideApplication)
         {
             this.slideApplication = slideApplication;
         }
 
-        public void OnGet()
+        public void OnGet(SearchSlide command)
         {
-            Items = slideApplication.List();
+            SearchModel = command;
+            Items = slideApplication.Search(SearchModel);
         }
 
 

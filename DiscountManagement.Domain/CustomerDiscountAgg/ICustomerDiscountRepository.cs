@@ -1,12 +1,14 @@
-﻿using DiscountManagement.Application.Contract;
+﻿using DiscountManagement.Application.Contracts;
+using DiscountManagement.Application.Contracts.CustomerDiscountAgg;
 using Framework.Domain;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace DiscountManagement.Domain.CustomerDiscountAgg
 {
-    public interface ICustomerDiscountRepository : IRepository<long, CustomerDiscount>
+    public interface ICustomerDiscountRepository:IRepository<long,CustomerDiscount>
     {
-        public EditCustomerDiscount EditGet(long id);
-        public List<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel command);
+        public IEnumerable<CustomerDiscountViewModel> Search(CustomerDiscountSearchModel entity);
     }
 }

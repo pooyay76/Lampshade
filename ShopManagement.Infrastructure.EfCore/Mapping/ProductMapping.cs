@@ -4,9 +4,9 @@ using ShopManagement.Domain.ProductAgg;
 
 namespace ShopManagement.Infrastructure.EfCore.Mapping
 {
-    public class ProductMapping : IEntityTypeConfiguration<ProductViewModel>
+    public class ProductMapping : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<ProductViewModel> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products");
             builder.HasKey(x => x.Id);
@@ -21,6 +21,7 @@ namespace ShopManagement.Infrastructure.EfCore.Mapping
             builder.Property(x => x.Picture).HasMaxLength(1000).IsRequired();
             builder.Property(x => x.CategoryId).IsRequired();
             builder.Property(x => x.UnitPrice).HasColumnType("decimal(16,2)").HasDefaultValue(0.00).IsRequired();
+            builder.Property(x => x.Code).IsRequired(false);
 
             builder.Property(x => x.PictureAlt).HasMaxLength(255);
             builder.Property(x => x.Slug).HasMaxLength(300).IsRequired();

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ShopManagement.Infrastructure.EfCore.Repository
 {
-    public class ProductRepository :RepositoryBase<long, Domain.ProductAgg.ProductViewModel>, IProductRepository
+    public class ProductRepository :RepositoryBase<long, Product>, IProductRepository
     {
         private readonly ShopContext shopContext;
         public ProductRepository(ShopContext shopContext) : base(shopContext)
@@ -15,34 +15,66 @@ namespace ShopManagement.Infrastructure.EfCore.Repository
             this.shopContext = shopContext;
         }
 
-        public Domain.ProductAgg.ProductViewModel GetProductCategory(long id)
+        public Product GetProduct(long id)
+        {
+            return shopContext.Products.FirstOrDefault(x => x.Id == id);
+        }
+
+
+        public Product GetProductWithCategory(long id)
         {
             return shopContext.Products.Include(x => x.Category).FirstOrDefault(x=>id == x.Id);
 
         }
 
-        public List<Domain.ProductAgg.ProductViewModel> ListProductsWithCategories()
+        public Product GetProductWithPictures(long id)
         {
-            return shopContext.Products.Include(x => x.Category).ToList();
+            return shopContext.Products.Include(x => x.ProductPictures).FirstOrDefault(x => x.Id == id);
+
+        }
+        public Product GetProductWithCategoryAndPictures(long id)
+        {
+            return shopContext.Products.Include(x => x.Category).Include(x=>x.ProductPictures).FirstOrDefault(x => id == x.Id);
+
         }
 
-        public List<Domain.ProductAgg.ProductViewModel> Search(ProductSearchModel query)
+
+        public IEnumerable<Product> GetProducts()
         {
-            var result = shopContext.Products.Include(x => x.Category).AsNoTracking().AsQueryable();
-            if (query.Name!= null)
-                result = result.Where(x => x.Name == query.Name);
-            if (query.UnitPrice != default)
-                result = result.Where(x => x.UnitPrice == query.UnitPrice);
-            if (query.CategoryId != default)
+            return shopContext.Products.OrderByDescending(x => x.Id);
+        }
+
+        public IEnumerable<Product> GetProductsWithPictures()
+        {
+            return shopContext.Products.Include(x=>x.ProductPictures).OrderByDescending(x => x.Id);
+        }
+
+        public IEnumerable<Product> GetProductsWithCategories()
+        {
+            return shopContext.Products.Include(x => x.Category).OrderByDescending(x => x.Id);
+        }
+        public IEnumerable<Product> GetProductsWithCategoriesAndPictures()
+        {
+            return shopContext.Products.Include(x => x.Category).Include(x => x.ProductPictures).OrderByDescending(x => x.Id);
+        }
+
+        public IEnumerable<Product> Search(ProductSearchModel query)
+        {
+            var result = shopContext.Products.Include(x => x.Category).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.Name))
+                result = result.Where(x => x.Name.Contains(query.Name));
+
+            if (query.CategoryId != 0)
                 result = result.Where(x => x.Category.Id == query.CategoryId);
+
             if (query.Code != null)
                 result = result.Where(x => x.Code == query.Code);
-            if (query.Description != null)
-                result = result.Where(x => x.Description == query.Description);
-            return result.ToList();
+
+
+            return result.OrderByDescending(x => x.Id);
 
         }
-
 
     }
 }

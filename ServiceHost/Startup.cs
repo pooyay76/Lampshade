@@ -1,9 +1,11 @@
 using DiscountManagement.Infrastructure.Configurations;
+using Framework.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopManagement.Application.AutoMapperProfiles;
 using ShopManagement.Configuration;
 
 namespace ServiceHost
@@ -21,8 +23,11 @@ namespace ServiceHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(ProductProfile).Assembly);
+            FrameworkBootstrapper.Configure(services);
             ShopManagementBootstrapper.Configure(services, connectionString);
             DiscountManagementBootstrapper.Configure(services, connectionString);
+
             services.AddRazorPages();
         }
 
