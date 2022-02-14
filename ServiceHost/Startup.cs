@@ -1,5 +1,6 @@
 using DiscountManagement.Infrastructure.Configurations;
 using Framework.Infrastructure;
+using InventoryManagement.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace ServiceHost
             FrameworkBootstrapper.Configure(services);
             ShopManagementBootstrapper.Configure(services, connectionString);
             DiscountManagementBootstrapper.Configure(services, connectionString);
+            InventoryManagementBootstrapper.Configure(services, connectionString);
 
             services.AddRazorPages();
         }

@@ -43,7 +43,7 @@ namespace Framework.Infrastructure
             context.Update(entity);
             context.SaveChanges();
         }
-        public T Get(long id)
+        public T Get(Tkey id)
         {
             return context.Find<T>(id);
         }

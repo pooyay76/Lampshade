@@ -345,11 +345,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DiscountManagement.Infrastructure.Configurations\DiscountManagement.Infrastructure.Configurations.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Application.Contracts\InventoryManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Infrastructure.Configurations\InventoryManagement.Infrastructure.Configurations.csproj" />
     <ProjectReference Include="..\LampshadeQuery\LampshadeQuery.csproj" />
     <ProjectReference Include="..\ShopManagement.Configuration\ShopManagement.Configuration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

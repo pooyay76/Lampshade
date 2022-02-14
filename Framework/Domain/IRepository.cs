@@ -10,6 +10,6 @@ namespace Framework.Domain
         public bool Exists(Expression<Func<T,bool>> expression);
         public void Update(T entity);
         public T Find(params object[] keys);
-        public T Get(long id);
+        public T Get(Tkey key);
     }
 }
