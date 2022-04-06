@@ -1,3 +1,5 @@
+using _0_Framework.Application;
+using AccountManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configurations;
 using Framework.Infrastructure;
 using InventoryManagement.Infrastructure.Configurations;
@@ -16,20 +18,21 @@ namespace ServiceHost
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            connectionString = Configuration.GetConnectionString("LampshadeDb");
+            ConnectionString = Configuration.GetConnectionString("LampshadeDb");
         }
-        private string connectionString { get; set; }
+        private string ConnectionString { get; set; }
         public IConfiguration Configuration { get; }
          
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(ProductProfile).Assembly);
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
             FrameworkBootstrapper.Configure(services);
-            ShopManagementBootstrapper.Configure(services, connectionString);
-            DiscountManagementBootstrapper.Configure(services, connectionString);
-            InventoryManagementBootstrapper.Configure(services, connectionString);
-
+            ShopManagementBootstrapper.Configure(services, ConnectionString);
+            DiscountManagementBootstrapper.Configure(services, ConnectionString);
+            InventoryManagementBootstrapper.Configure(services, ConnectionString);
+            AccountManagementBootstrapper.Configure(services, ConnectionString);
             services.AddRazorPages();
         }
 

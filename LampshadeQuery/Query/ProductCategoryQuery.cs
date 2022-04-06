@@ -1,4 +1,7 @@
-﻿using LampshadeQuery.Contracts.ProductCategoryAgg;
+﻿using LampshadeQuery.Contracts.ProductAgg;
+using LampshadeQuery.Contracts.ProductCategoryAgg;
+using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.EfCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,33 @@ namespace LampshadeQuery.Query
         public ProductCategoryQuery(ShopContext shopContext)
         {
             this.shopContext = shopContext;
+        }
+
+        public List<ProductCategoryQueryModel> GetProductCategoriesWithProducts()
+        {
+            return shopContext.ProductCategories.Include(x => x.Products).AsNoTracking().Select(x=>new ProductCategoryQueryModel 
+            { 
+            Products=MapProducts(x.Products),
+            Name = x.Name,
+            Picture = x.Picture,
+            PictureAlt = x.PictureAlt,
+            PictureTitle =x.PictureTitle,
+            Slug = x.Slug
+            }).ToList();
+        }
+
+        private static List<ProductQueryModel> MapProducts(List<Product> products)
+        {
+            return products.Select(x => new ProductQueryModel
+            {
+                Slug = x.Slug,
+                PictureTitle = x.PictureTitle,
+                PictureAlt = x.PictureAlt,
+                Picture = x.Picture,
+                CategoryName = x.Category.Name,
+                Name = x.Name,
+                Id=x.Id
+            }).ToList();
         }
 
         public List<ProductCategoryQueryModel> GetProductCategories()
@@ -42,5 +72,6 @@ namespace LampshadeQuery.Query
         {
             throw new System.NotImplementedException();
         }
+
     }
 }

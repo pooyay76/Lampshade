@@ -34,7 +34,6 @@ namespace DiscountManagement.Infrastructure.EfCore.Repository
                 CreationDateTime = x.CreationDateTime.ToFarsi(),
                 Picture = x.Picture,
                 ShortDescription = x.ShortDescription,
-                UnitPrice = x.UnitPrice
             }).ToList();
 
 

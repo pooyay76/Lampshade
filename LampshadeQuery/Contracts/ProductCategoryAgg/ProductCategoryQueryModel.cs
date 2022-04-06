@@ -1,4 +1,7 @@
-﻿namespace LampshadeQuery.Contracts.ProductCategoryAgg
+﻿using LampshadeQuery.Contracts.ProductAgg;
+using System.Collections.Generic;
+
+namespace LampshadeQuery.Contracts.ProductCategoryAgg
 {
     public class ProductCategoryQueryModel
     {
@@ -7,5 +10,7 @@
         public string PictureAlt { get; set; }
         public string PictureTitle { get; set; }
         public string Slug { get; set; }
+        public List<ProductQueryModel> Products { get; set; }
+
     }
 }

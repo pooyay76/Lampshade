@@ -25,7 +25,7 @@ namespace ShopManagement.Application
             if (productRepository.Exists(x => x.Name == dataEntry.Name))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
             string slug = dataEntry.Name.Slugify();
-            var data = new Product(dataEntry.Name, dataEntry.UnitPrice, dataEntry.Description, dataEntry.IsInStock, dataEntry.Picture,
+            var data = new Product(dataEntry.Name, dataEntry.Description,dataEntry.Picture,
                 dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription,
                 slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription) ;
             productRepository.Create(data);
@@ -48,7 +48,7 @@ namespace ShopManagement.Application
 
             string slug = dataEntry.Name.Slugify();
 
-            entity.Edit(dataEntry.Name, dataEntry.UnitPrice, dataEntry.IsInStock, dataEntry.Description, dataEntry.Picture,
+            entity.Edit(dataEntry.Name, dataEntry.Description, dataEntry.Picture,
                 dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription, slug,
                 dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription);
 
@@ -81,27 +81,6 @@ namespace ShopManagement.Application
             return productRepository.GetProductsWithCategories().Select(x => mapper.Map<Product,ProductMinimalViewModel>(x)).ToList();
         }
 
-        public OperationResult MakeInStock(long id)
-        {
-            var operation = new OperationResult();
-            var entity = productRepository.GetProduct(id);
-            if (entity == null)
-                return operation.Failed(ApplicationMessages.NotFoundMessage);
-            entity.InStock();
-            productRepository.Update(entity);
-            return operation.Succeeded();
-        }
-
-        public OperationResult MakeNotInStock(long id)
-        {
-            var operation = new OperationResult();
-            var entity = productRepository.GetProduct(id);
-            if (entity == null)
-                return operation.Failed(ApplicationMessages.NotFoundMessage);
-            entity.NotInStock();
-            productRepository.Update(entity);
-            return operation.Succeeded();
-        }
 
         public List<ProductMinimalViewModel> Search(ProductSearchModel query)
         {

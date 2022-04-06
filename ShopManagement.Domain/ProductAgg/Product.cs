@@ -10,11 +10,6 @@ namespace ShopManagement.Domain.ProductAgg
         public string Name { get; private set; }
 
 
-        public decimal UnitPrice { get; private set; }
-
-
-        public bool IsInStock { get; private set; }
-
         public string Code { get; private set; }
 
         public string Description { get; private set; }
@@ -41,13 +36,11 @@ namespace ShopManagement.Domain.ProductAgg
         public string MetaDescription { get; private set; }
 
 
-        public Product(string name, decimal unitPrice,string description, bool isInStock,
+        public Product(string name,string description,
             string picture, string pictureAlt, string pictureTitle, string keywords, string metaDescription,
             string slug, long categoryId, string code, string shortDescription)
         {
             Name = name;
-            UnitPrice = unitPrice;
-            IsInStock = true;
             Description = description;
             Picture = picture;
             PictureAlt = pictureAlt;
@@ -58,16 +51,13 @@ namespace ShopManagement.Domain.ProductAgg
             CategoryId = categoryId;
             ShortDescription = shortDescription;
             Code = code;
-            IsInStock = isInStock;
 
         }
-        public void Edit(string name, decimal unitPrice, bool isInStock, string description,
+        public void Edit(string name, string description,
             string picture, string pictureAlt, string pictureTitle, string keywords, string metaDescription,
             string slug, long categoryId,string code,string shortDescription)
         {
             Name = name;
-            UnitPrice = unitPrice;
-            IsInStock = isInStock;
             Description = description;
             Picture = picture;
             PictureAlt = pictureAlt;
@@ -79,14 +69,7 @@ namespace ShopManagement.Domain.ProductAgg
             ShortDescription = shortDescription;
             Code = code;
         }
-        public void InStock()
-        {
-            IsInStock = true;
-        }
-        public void NotInStock()
-        {
-            IsInStock = false;
-        }
+
     }
 
 
