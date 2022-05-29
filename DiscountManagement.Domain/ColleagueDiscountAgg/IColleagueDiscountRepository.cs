@@ -6,7 +6,6 @@ namespace DiscountManagement.Domain.ColleagueDiscountAgg
 {
     public interface IColleagueDiscountRepository:IRepository<long,ColleagueDiscount>
     {
-        public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel entity);
-        public EditColleagueDiscount EditGet(long id);
+        public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel entity);
     }
 }

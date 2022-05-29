@@ -1,4 +1,4 @@
-﻿using DiscountManagement.Application.Contracts;
+﻿using AutoMapper;
 using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
 using DiscountManagement.Domain.ColleagueDiscountAgg;
 using Framework.Application;
@@ -11,10 +11,12 @@ namespace DiscountManagement.Application
     public class ColleagueDiscountApplication : IColleagueDiscountApplication
     {
         private readonly IColleagueDiscountRepository colleagueDiscountRepository;
+        private readonly IMapper mapper;
 
-        public ColleagueDiscountApplication(IColleagueDiscountRepository colleagueDiscountRepository)
+        public ColleagueDiscountApplication(IColleagueDiscountRepository colleagueDiscountRepository,IMapper mapper)
         {
             this.colleagueDiscountRepository = colleagueDiscountRepository;
+            this.mapper = mapper;
         }
 
 
@@ -52,7 +54,9 @@ namespace DiscountManagement.Application
         public EditColleagueDiscount EditGet(long id)
         {
             var data = colleagueDiscountRepository.Get(id);
-            return new EditColleagueDiscount() {DiscountRate=data.DiscountRate,Name=data.Name,Id=data.Id,ProductId=data.ProductId };
+            if (data == null)
+                return null;
+            return mapper.Map<EditColleagueDiscount>(data);
         }
 
         public OperationResult Remove(long id)
@@ -83,7 +87,13 @@ namespace DiscountManagement.Application
 
         public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel command)
         {
-            return colleagueDiscountRepository.Search(command).ToList();
+
+            List<ColleagueDiscountViewModel> data = colleagueDiscountRepository.Search(command);
+
+            if (data == null)
+                return null;
+
+            return data.Select(x => mapper.Map<ColleagueDiscountViewModel>(x)).ToList();
         }
 
 

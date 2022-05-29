@@ -6,7 +6,7 @@ namespace AccountManagement.Domain.AccountAgg
 {
     public interface IAccountRepository:IRepository<long,Account>
     {
-        EditAccount EditGet(long id);
-        IEnumerable<AccountViewModel> Search(AccountSearchModel command);
+        IEnumerable<Account> Search(AccountSearchModel command);
+        
     }
 }

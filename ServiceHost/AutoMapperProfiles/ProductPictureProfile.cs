@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
 using ShopManagement.Application.Contracts.ProductPictureAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 
@@ -11,7 +10,7 @@ namespace ShopManagement.Application.AutoMapperProfiles
         {
             CreateMap<ProductPicture, ProductPictureViewModel>().ForMember(dest => dest.ProductName, opt => opt.MapFrom(inp => inp.Product.Name)); ;
             CreateMap<ProductPicture, ProductPictureMinimalViewModel>().ForMember(dest => dest.ProductName, opt => opt.MapFrom(inp => inp.Product.Name)); ;
-            CreateMap<ProductPicture, EditProductCategory>();
+            CreateMap<ProductPicture, EditProductPicture>();
         }
     }
 }

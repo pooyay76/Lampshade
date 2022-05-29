@@ -1,0 +1,128 @@
+﻿@model List<LampshadeQuery.Contracts.ProductCategoryAgg.ProductCategoryQueryModel>
+    <div class="single-row-slider-tab-area section-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--=======  section title  =======-->
+                    <div class="section-title-wrapper text-center section-space--half">
+                        <h2 class="section-title">Our Products</h2>
+                        <p class="section-subtitle">
+                            Mirum est notare quam littera gothica, quam nunc putamus parum
+                            claram anteposuerit litterarum formas.
+                        </p>
+                    </div>
+                    <!--=======  End of section title  =======-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--=======  tab slider wrapper  =======-->
+
+                    <div class="tab-slider-wrapper">
+                        <!--=======  tab product navigation  =======-->
+
+                        <div class="tab-product-navigation">
+                            <div class="nav nav-tabs justify-content-center" id="nav-tab2" role="tablist">
+                                @foreach (var category in Model)
+                                {
+                                <a class="nav-item nav-link active" id="product-tab-@category.Id" data-toggle="tab" href="#product-series-@category.Id" role="tab" aria-selected="true">@category.Name</a>
+                                }
+                            </div>
+                        </div>
+
+                        <!--=======  End of tab product navigation  =======-->
+                        <!--=======  tab product content  =======-->
+                        <div class="tab-content">
+                            @foreach(var category in Model)
+                             {
+                                <div class="tab-pane fade show active" id="product-series-@category.Id" role="tabpanel" aria-labelledby="product-tab-@category.Id">
+                                <!--=======  single row slider wrapper  =======-->
+                                <div class="single-row-slider-wrapper">
+                                    <div class="ht-slick-slider slick-initialized slick-slider" data-slick-setting="{
+                                    &quot;slidesToShow&quot;: 4,
+                                    &quot;slidesToScroll&quot;: 1,
+                                    &quot;arrows&quot;: true,
+                                    &quot;autoplay&quot;: false,
+                                    &quot;autoplaySpeed&quot;: 5000,
+                                    &quot;speed&quot;: 1000,
+                                    &quot;infinite&quot;: true,
+                                    &quot;rtl&quot;: true,
+                                    &quot;prevArrow&quot;: {&quot;buttonClass&quot;: &quot;slick-prev&quot;, &quot;iconClass&quot;: &quot;ion-chevron-left&quot; },
+                                    &quot;nextArrow&quot;: {&quot;buttonClass&quot;: &quot;slick-next&quot;, &quot;iconClass&quot;: &quot;ion-chevron-right&quot; }
+                                }" data-slick-responsive="[
+                                    {&quot;breakpoint&quot;:1501, &quot;settings&quot;: {&quot;slidesToShow&quot;: 4} },
+                                    {&quot;breakpoint&quot;:1199, &quot;settings&quot;: {&quot;slidesToShow&quot;: 4, &quot;arrows&quot;: false} },
+                                    {&quot;breakpoint&quot;:991, &quot;settings&quot;: {&quot;slidesToShow&quot;: 3, &quot;arrows&quot;: false} },
+                                    {&quot;breakpoint&quot;:767, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2, &quot;arrows&quot;: false} },
+                                    {&quot;breakpoint&quot;:575, &quot;settings&quot;: {&quot;slidesToShow&quot;: 2, &quot;arrows&quot;: false} },
+                                    {&quot;breakpoint&quot;:479, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1, &quot;arrows&quot;: false} }
+                                ]">
+                                        <button class="slick-prev slick-arrow" style=""><i class="ion-chevron-left"></i></button><div class="slick-list draggable">
+                                            <div class="slick-track" style="opacity: 1; width: 3990px; transform: translate3d(1140px, 0px, 0px);">
+                                                @foreach(var product in category.Products)
+                                                {
+                                                    <div class="slick-slide slick-active" data-slick-index="3" aria-hidden="false" style="width: 285px;">
+                                                    <div>
+                                                        <div class="col" style="width: 100%; display: inline-block;">
+                                                            <!--=======  single grid product  =======-->
+                                                            <div class="single-grid-product">
+                                                                <div class="single-grid-product__image">
+                                                                    <div class="single-grid-product__label">
+                                                                        <span class="sale">-@product.DiscountRate</span>
+                                                                    </div>
+                                                                    <a href="single-product.html" tabindex="0">
+                                                                        <img src="@product.Picture" class="img-fluid" title="@product.PictureTitle" alt="@product.PictureAlt">
+                                                                        <img src="@product.Picture" class="img-fluid"  title="@product.PictureTitle" alt="@product.PictureAlt">
+                                                                    </a>
+
+                                                                    <div class="hover-icons">
+                                                                        <a href="javascript:void(0)" tabindex="0"><i class="ion-bag"></i></a>
+                                                                        <a href="javascript:void(0)" tabindex="0"><i class="ion-heart"></i></a>
+                                                                        <a href="javascript:void(0)" tabindex="0"><i class="ion-android-options"></i></a>
+                                                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#quick-view-modal-container" tabindex="0"><i class="ion-android-open"></i></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="single-grid-product__content">
+                                                                    <div class="single-grid-product__category-rating">
+                                                                        <span class="category"><a href="shop-left-sidebar.html" tabindex="0">@product.CategoryName</a></span>
+                                                                        <span class="rating">
+                                                                            <i class="ion-android-star active"></i>
+                                                                            <i class="ion-android-star active"></i>
+                                                                            <i class="ion-android-star active"></i>
+                                                                            <i class="ion-android-star active"></i>
+                                                                            <i class="ion-android-star-outline"></i>
+                                                                        </span>
+                                                                    </div>
+
+                                                                    <h3 class="single-grid-product__title">
+                                                                        <a href="single-product.html" tabindex="0">
+                                                                            lorem ipsum cillium dolore
+                                                                            decoration item
+                                                                        </a>
+                                                                    </h3>
+                                                                    <p class="single-grid-product__price"><span class="discounted-price">$20.00</span> <span class="main-price discounted">$40.00</span></p>
+                                                                </div>
+                                                            </div>
+                                                            <!--=======  End of single grid product  =======-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                            </div>
+                                        </div><button class="slick-next slick-arrow" style=""><i class="ion-chevron-right"></i></button>
+                                    </div>
+                                </div>
+                                <!--=======  End of single row slider wrapper  =======-->
+                            </div>
+                             }
+                            
+
+                        </div>
+                        <!--=======  End of tab product content  =======-->
+                    </div>
+
+                    <!--=======  End of tab slider wrapper  =======-->
+                </div>
+            </div>
+        </div>
+    </div>

@@ -3,18 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceHost.ViewComponents
 {
-    public class ProductCategoriesViewComponent:ViewComponent
+    public class ProductsWithCategoriesSliderViewComponent : ViewComponent
     {
         private readonly IProductCategoryQuery productCategoryQuery;
 
-        public ProductCategoriesViewComponent(IProductCategoryQuery productCategoryQuery)
+        public ProductsWithCategoriesSliderViewComponent(IProductCategoryQuery productCategoryQuery)
         {
             this.productCategoryQuery = productCategoryQuery;
         }
+
         public IViewComponentResult Invoke()
         {
-            var trash = productCategoryQuery.GetProductCategoriesWithProductsDetails();
-            return View(productCategoryQuery.GetProductCategories());
+            var items = productCategoryQuery.GetProductCategoriesWithProductsDetails();
+            return View(items);
         }
-    } 
+    }
 }

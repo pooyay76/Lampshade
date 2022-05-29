@@ -11,25 +11,19 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
         private readonly AccountContext accountContext;
         public AccountRepository(AccountContext context) : base(context)
         {
+
             accountContext = context;
         }
 
-        public EditAccount EditGet(long id)
-        {
-            var target = accountContext.Accounts.FirstOrDefault(x=>x.Id == id);
-            if (target == null)
-                return null;
-            return new EditAccount {
-                Id = target.Id,
-                FullName = target.FullName,
-                PhoneNumber = target.PhoneNumber,
-                ProfilePicture = target.ProfilePicture,
-                RoleId = target.RoleId,
-                Username = target.Username
-            };
-        }
+        //public EditAccount EditGet(long id)
+        //{
+        //    var target = accountContext.Accounts.FirstOrDefault(x=>x.Id == id);
+        //    if (target == null)
+        //        return null;
+        //    return mapper.Map<EditAccount>(target);
+        //}
 
-        public IEnumerable<AccountViewModel> Search(AccountSearchModel command)
+        public IEnumerable<Account> Search(AccountSearchModel command)
         {
             var query = accountContext.Accounts;
             if (!string.IsNullOrWhiteSpace(command.Username))
@@ -44,14 +38,10 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             if (command.RoleId != default)
                 query.Where(x => x.RoleId == command.RoleId);
 
-            return query.Select(x => new AccountViewModel { 
-                Id= x.Id,
-                RoleId = x.RoleId,
-                PhoneNumber = x.PhoneNumber,
-                FullName = x.FullName,
-                ProfilePicture = x.ProfilePicture,
-                Username = x.Username
-            });
+            if (query == null)
+                return null;
+
+            return query.OrderByDescending(x=>x.Id);
 
         }
     }

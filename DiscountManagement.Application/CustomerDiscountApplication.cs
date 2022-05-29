@@ -54,11 +54,11 @@ namespace DiscountManagement.Application
             return new EditCustomerDiscount
             {
                 DiscountRate = data.DiscountPercentage,
-                EndDate = data.EndDate.ToFarsi(),
+                EndDate = data.EndDate.ToFarsi().ToString(),
                 Id = data.Id,
                 ProductId = data.ProductId,
                 Reason = data.Reason,
-                StartDate = data.StartDate.ToFarsi()
+                StartDate = data.StartDate.ToFarsi().ToString()
             };
         }
 

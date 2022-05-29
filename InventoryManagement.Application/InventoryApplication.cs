@@ -27,7 +27,7 @@ namespace InventoryManagement.Application
         public OperationResult Edit(EditInventory command)
         {
             OperationResult operation = new();
-            var data = inventoryRepository.Get(command.Id);
+            Inventory data = inventoryRepository.Get(command.Id);
             if (data == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
             data.Edit(command.ProductId, command.UnitPrice);

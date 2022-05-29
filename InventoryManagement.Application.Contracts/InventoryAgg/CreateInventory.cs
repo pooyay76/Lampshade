@@ -5,7 +5,7 @@ namespace InventoryManagement.Application.Contracts.InventoryAgg
 {
     public class CreateInventory
     {
-        public long UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         public long ProductId { get; set; }
         public SelectList Products { get; set; }
 

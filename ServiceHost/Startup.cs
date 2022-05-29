@@ -28,7 +28,6 @@ namespace ServiceHost
         {
             services.AddAutoMapper(typeof(ProductProfile).Assembly);
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            FrameworkBootstrapper.Configure(services);
             ShopManagementBootstrapper.Configure(services, ConnectionString);
             DiscountManagementBootstrapper.Configure(services, ConnectionString);
             InventoryManagementBootstrapper.Configure(services, ConnectionString);

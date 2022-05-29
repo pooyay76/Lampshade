@@ -1,5 +1,4 @@
-﻿using LampshadeQuery.Contracts.ProductAgg;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LampshadeQuery.Contracts.ProductCategoryAgg
 {
@@ -7,7 +6,7 @@ namespace LampshadeQuery.Contracts.ProductCategoryAgg
     {
         public List<ProductCategoryQueryModel> GetProductCategories();
         public ProductCategoryQueryModel GetProductCategoryById(long id);
-        public List<ProductCategoryQueryModel> GetProductCategoriesWithProducts();
+        public List<ProductCategoryQueryModel> GetProductCategoriesWithProductsDetails();
 
     }
 }

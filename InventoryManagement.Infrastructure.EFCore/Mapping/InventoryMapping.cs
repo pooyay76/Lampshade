@@ -11,6 +11,7 @@ namespace InventoryManagement.Infrastructure.EFCore.Mapping
         {
             builder.ToTable("Inventories");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.UnitPrice).HasColumnType("decimal(10,2)");
             builder.OwnsMany(x => x.InventoryOperations, builder2 =>
                {
                    builder2.HasKey(x => x.Id);

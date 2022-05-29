@@ -1,4 +1,3 @@
-using DiscountManagement.Application.Contracts;
 using DiscountManagement.Application.Contracts.CustomerDiscountAgg;
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
         public PartialViewResult OnGetEdit(long id)
         {
             var item = customerDiscountApplication.EditGet(id);
+
             item.Products = new SelectList(productApplication.List(), "Id", "Name");
             if (item == null)
                 return null;

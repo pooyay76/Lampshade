@@ -16,6 +16,7 @@ namespace ShopManagement.Infrastructure.EfCore
 
         public ShopContext(DbContextOptions<ShopContext> options):base(options)
         {
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -6,22 +6,23 @@ namespace InventoryManagement.Domain.InventoryAgg
 {
     public class Inventory:EntityBase
     {
-        public Inventory(long productId, long unitPrice)
+        public long ProductId { get; private set; }
+        public bool IsInStock { get { return CurrentCount > 0; } }
+        public int CurrentCount { get { return CalculateCurrentCount(); } }
+        public decimal UnitPrice { get; private set; }
+        public List<InventoryOperation> InventoryOperations { get; private set; }
+
+        public Inventory(long productId, decimal unitPrice)
         {
             ProductId = productId;
             UnitPrice = unitPrice;
         }
 
-        public void Edit(long productId, long unitPrice)
+        public void Edit(long productId, decimal unitPrice)
         {
             ProductId = productId;
             UnitPrice = unitPrice;
         }
-        public long ProductId { get; private set; }
-        public bool IsInStock { get { return CurrentCount > 0; } }
-        public int CurrentCount { get { return CalculateCurrentCount(); } }
-        public long UnitPrice { get; private set; }
-        public List<InventoryOperation> InventoryOperations { get; private set; }
 
         public int CalculateCurrentCount()
         {

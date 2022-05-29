@@ -1,6 +1,7 @@
 ﻿using _0_Framework.Application;
 using AccountManagement.Application.Contracts.AccountAgg;
 using AccountManagement.Domain.AccountAgg;
+using AutoMapper;
 using Framework.Application;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace AccountManagement.Application
     {
         private readonly IAccountRepository accountRepository;
         private readonly IPasswordHasher passwordHasher;
-
-        public AccountApplication(IAccountRepository accountRepository,IPasswordHasher passwordHasher)
+        private readonly IMapper mapper;
+        public AccountApplication(IAccountRepository accountRepository,IPasswordHasher passwordHasher,IMapper mapper)
         {
+            this.mapper = mapper;
             this.accountRepository = accountRepository;
             this.passwordHasher = passwordHasher;
         }
@@ -69,12 +71,12 @@ namespace AccountManagement.Application
             var target = accountRepository.Get(id);
             if (target == null)
                 return null;
-            return new EditAccount { Username = target.Username, FullName = target.FullName, Id = target.Id, PhoneNumber = target.PhoneNumber, ProfilePicture = target.ProfilePicture, RoleId = target.RoleId };
+            return mapper.Map<EditAccount>(target);
         }
 
         public List<AccountViewModel> Search(AccountSearchModel command)
         {
-            return accountRepository.Search(command).ToList();
+            return accountRepository.Search(command).Select(x => mapper.Map<AccountViewModel>(x)).ToList();
         }
     }
 }

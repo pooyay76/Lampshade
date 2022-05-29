@@ -2,7 +2,6 @@
 using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
 using DiscountManagement.Domain.ColleagueDiscountAgg;
 using Framework.Infrastructure;
-using ShopManagement.Application.Contracts.ProductAgg;
 using ShopManagement.Infrastructure.EfCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,27 +18,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repository
             this.shopContext = shopContext;
             this.discountContext = discountContext;
         }
-
-        public EditColleagueDiscount EditGet(long id)
-        {
-
-            var data = discountContext.ColleagueDiscounts.FirstOrDefault(x => x.Id == id);
-
-            var products = shopContext.Products.Select(x => new ProductMinimalViewModel()
-            {
-                Id = x.Id,
-                CategoryName = x.Category.Name,
-                Name = x.Name,
-                Code = x.Code,
-                CreationDateTime = x.CreationDateTime.ToFarsi(),
-                Picture = x.Picture,
-                ShortDescription = x.ShortDescription,
-            }).ToList();
-
-
-            return new EditColleagueDiscount() { Id = data.Id, DiscountRate = data.DiscountRate, Name = data.Name, ProductId = data.ProductId };
-        }
-        public IEnumerable<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel entity)
+        public List<ColleagueDiscountViewModel> Search(ColleagueDiscountSearchModel entity)
         {
             var query = discountContext.ColleagueDiscounts;
             var products = shopContext.Products.Select(x=>new {x.Id,x.Name }).AsEnumerable();
@@ -49,7 +28,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repository
 
             //from dis in query
             //join prod in shopContext.Products on dis.ProductId equals prod.Id
-            return query.AsEnumerable().Join(products, x => x.ProductId, y => y.Id, (x, y) => new ColleagueDiscountViewModel()
+            return query.AsEnumerable().Join(products, x => x.ProductId, y => y.Id, (x, y) => new ColleagueDiscountViewModel
             {
                 CreationDate = x.CreationDateTime.ToFarsi(),
                 DiscountRate = x.DiscountRate,
@@ -57,7 +36,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repository
                 ProductName = y.Name,
                 Name = x.Name,
                 Id = x.Id
-            });
+            }).ToList();
 
         }
     }
