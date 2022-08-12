@@ -13,7 +13,6 @@ namespace ServiceHost.ViewComponents
         }
         public IViewComponentResult Invoke()
         {
-            var trash = productCategoryQuery.GetProductCategoriesWithProductsDetails();
             return View(productCategoryQuery.GetProductCategories());
         }
     } 

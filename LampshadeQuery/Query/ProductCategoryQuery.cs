@@ -24,7 +24,7 @@ namespace LampshadeQuery.Query
             this.discountContext = discountContext;
         }
 
-        // returns { Category1{
+        // BELOW METHOD RETURNS { Category1{
         //              Name,                        
         //              Product1{Price: a, Discount: x},
         //              Product2{Price:b,Discount:y}
@@ -37,14 +37,14 @@ namespace LampshadeQuery.Query
 
             var prices = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice });
 
-            // get discount list
+            // GET DISCOUNT LIST
             var discounts = discountContext.CustomerDiscounts
                 .Where(x => x.EndDate > DateTime.Now && x.StartDate <= DateTime.Now)
                 .Select(x => new { EndDate = x.EndDate, DiscountRate = x.DiscountPercentage, ProductId = x.ProductId })
                 .AsNoTracking();
 
 
-            //get product categories with products
+            //GET PRODUCT CATEGORIES WITH PRODUCTS
             var categoriesWithProducts = shopContext.ProductCategories.Include(x => x.Products).ThenInclude(x=>x.Category).AsNoTracking().Select(x => new ProductCategoryQueryModel()
             {
                 Id = x.Id,

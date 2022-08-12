@@ -1,6 +1,9 @@
-﻿namespace LampshadeQuery.Contracts.ProductAgg
+﻿using System.Collections.Generic;
+
+namespace LampshadeQuery.Contracts.ProductAgg
 {
-    public class IProductQuery
+    public interface IProductQuery
     {
+        public List<ProductQueryModel> GetLatestArrivals();
     }
 }
