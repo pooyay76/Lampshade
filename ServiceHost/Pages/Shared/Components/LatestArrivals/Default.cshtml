@@ -1,4 +1,4 @@
-﻿@model List<_01_LampshadeQuery.Contracts.Product.ProductQueryModel>
+﻿@model List<LampshadeQuery.Contracts.ProductAgg.ProductQueryModel>
 
 
 <div class="single-row-slider-area section-space">
@@ -41,7 +41,7 @@
                                 <div class="single-grid-product">
                                     <div class="single-grid-product__image">
                                         <div class="single-grid-product__label">
-                                            @if (product.HasDiscount)
+                                            @if (product.DiscountRate != 0)
                                             {
                                                 <span class="sale">-@product.DiscountRate%</span>
                                                 <span class="new">جدید</span>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="single-grid-product__content">
                                         <div class="single-grid-product__category-rating">
-                                            <span class="category"><a asp-page="/ProductCategory" asp-route-id="@product.CategorySlug">@product.Category</a></span>
+                                            <span class="category"><a asp-page="/ProductCategory" asp-route-id="@product.CategorySlug">@product.CategoryName</a></span>
                                             <span class="rating">
                                                 <i class="ion-android-star active"></i>
                                                 <i class="ion-android-star active"></i>
@@ -67,7 +67,7 @@
                                             <a asp-page="/Product" asp-route-id="@product.Slug">@product.Name</a>
                                         </h3>
                                         <p class="single-grid-product__price">
-                                            @if (product.HasDiscount)
+                                            @if (product.DiscountRate != 0)
                                             {
                                                 <span class="discounted-price">@product.PriceWithDiscount تومان</span>
                                                 <span class="main-price discounted">@product.Price تومان</span>

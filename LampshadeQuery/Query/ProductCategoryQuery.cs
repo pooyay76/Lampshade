@@ -34,17 +34,17 @@ namespace LampshadeQuery.Query
         //          }
         public List<ProductCategoryQueryModel> GetProductCategoriesWithProductsDetails()
         {
-
+            //LIST OF PRICES FOR EACH PRODUCT IN INVENTORY
             var prices = inventoryContext.Inventories.Select(x => new { x.ProductId, x.UnitPrice });
 
-            // GET DISCOUNT LIST
+            //LIST OF ACTIVE DISCOUNTS
             var discounts = discountContext.CustomerDiscounts
                 .Where(x => x.EndDate > DateTime.Now && x.StartDate <= DateTime.Now)
                 .Select(x => new { EndDate = x.EndDate, DiscountRate = x.DiscountPercentage, ProductId = x.ProductId })
                 .AsNoTracking();
 
 
-            //GET PRODUCT CATEGORIES WITH PRODUCTS
+            //GET PRODUCT CATEGORIES INLCUDED WITH PRODUCTS
             var categoriesWithProducts = shopContext.ProductCategories.Include(x => x.Products).ThenInclude(x=>x.Category).AsNoTracking().Select(x => new ProductCategoryQueryModel()
             {
                 Id = x.Id,
@@ -56,14 +56,16 @@ namespace LampshadeQuery.Query
                 Slug = x.Slug
             }).ToList();
 
-            //joining discount and price for each category's products using LINQ
+            //joining discount and price for each product in each category using LINQ
             foreach (var category in categoriesWithProducts)
             {
                 //foreach category we have many products which might have discounts and must have prices
-                foreach(var product in category.Products)
+                foreach (var product in category.Products)
                 {
-                    product.Price = prices.FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice.ToMoney();
-                    product.DiscountRate = discounts.FirstOrDefault(x => x.ProductId == product.Id)?.DiscountRate;
+                    product.Price = prices.FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice;
+
+                    var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
+                    product.DiscountRate = discount == null ? 0 : discount.DiscountRate;
                 }
 
             }

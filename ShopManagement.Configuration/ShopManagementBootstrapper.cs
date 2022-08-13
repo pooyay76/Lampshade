@@ -1,4 +1,5 @@
-﻿using LampshadeQuery.Contracts.ProductCategoryAgg;
+﻿using LampshadeQuery.Contracts.ProductAgg;
+using LampshadeQuery.Contracts.ProductCategoryAgg;
 using LampshadeQuery.Contracts.SlideAgg;
 using LampshadeQuery.Query;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace ShopManagement.Configuration
 
             serviceCollection.AddTransient<IProductApplication, ProductApplication>();
             serviceCollection.AddTransient<IProductRepository, ProductRepository>();
+            serviceCollection.AddTransient<IProductQuery, ProductQuery>();
 
             serviceCollection.AddTransient<IProductPictureRepository, ProductPictureRepository>();
             serviceCollection.AddTransient<IProductPictureApplication, ProductPictureApplication>();

@@ -6,22 +6,18 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Shared\Components\Footer\**" />
-    <Compile Remove="Pages\Shared\Components\LatestArrivals\**" />
     <Compile Remove="Pages\Shared\Components\LatestArticles\**" />
     <Compile Remove="Pages\Shared\Components\Menu\**" />
     <Compile Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
     <Content Remove="Pages\Shared\Components\Footer\**" />
-    <Content Remove="Pages\Shared\Components\LatestArrivals\**" />
     <Content Remove="Pages\Shared\Components\LatestArticles\**" />
     <Content Remove="Pages\Shared\Components\Menu\**" />
     <Content Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\Footer\**" />
-    <EmbeddedResource Remove="Pages\Shared\Components\LatestArrivals\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\LatestArticles\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\Menu\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
     <None Remove="Pages\Shared\Components\Footer\**" />
-    <None Remove="Pages\Shared\Components\LatestArrivals\**" />
     <None Remove="Pages\Shared\Components\LatestArticles\**" />
     <None Remove="Pages\Shared\Components\Menu\**" />
     <None Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
