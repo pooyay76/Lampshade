@@ -44,7 +44,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.ProductName</td>
-                        <td><img class="img" src="@item.Picture" /></td>
+                        <td><img class="img" style="max-height:250px;" src="~/Uploads/ProductPicture/@item.Picture" /></td>
                         <td>
                             <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>
                             <a class="btn tbn-sm btn-danger" href="#">حذف</a>

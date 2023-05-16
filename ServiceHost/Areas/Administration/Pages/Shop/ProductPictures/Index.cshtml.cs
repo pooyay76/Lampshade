@@ -1,8 +1,8 @@
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopManagement.Application.Contracts.ProductAgg;
-using ShopManagement.Application.Contracts.ProductPictureAgg;
+using ShopManagement.Application.Contracts.Product;
+using ShopManagement.Application.Contracts.ProductPicture;
 using System.Collections.Generic;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures

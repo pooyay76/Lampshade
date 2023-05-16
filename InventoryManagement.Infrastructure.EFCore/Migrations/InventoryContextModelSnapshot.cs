@@ -64,7 +64,7 @@ namespace InventoryManagement.Infrastructure.EFCore.Migrations
                             b1.Property<bool>("IsSold")
                                 .HasColumnType("bit");
 
-                            b1.Property<DateTime>("OpeartionDateTime")
+                            b1.Property<DateTime>("OperationDateTime")
                                 .HasColumnType("datetime2");
 
                             b1.Property<long>("OperatorId")

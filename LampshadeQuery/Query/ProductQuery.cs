@@ -1,7 +1,6 @@
-﻿using _0_Framework.Application;
-using DiscountManagement.Infrastructure.EfCore;
+﻿using DiscountManagement.Infrastructure.EfCore;
 using InventoryManagement.Infrastructure.EFCore;
-using LampshadeQuery.Contracts.ProductAgg;
+using LampshadeQuery.Contracts.Product;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Infrastructure.EfCore;
 using System;
@@ -31,7 +30,7 @@ namespace LampshadeQuery.Query
             //LIST OF ACTIVE DISCOUNTS
             var discounts = discountContext.CustomerDiscounts
                 .Where(x => x.EndDate > DateTime.Now && x.StartDate <= DateTime.Now)
-                .Select(x => new { EndDate = x.EndDate, DiscountRate = x.DiscountPercentage, ProductId = x.ProductId })
+                .Select(x => new { EndDate = x.EndDate, DiscountPercentage = x.DiscountPercentage, ProductId = x.ProductId })
                 .AsNoTracking();
 
             //LIST OF ALL PRODUCTS
@@ -45,15 +44,15 @@ namespace LampshadeQuery.Query
                 CategorySlug = x.Category.Slug,
                 Name = x.Name,
                 Id = x.Id
-            }).AsNoTracking();
+            }).AsNoTracking().ToList();
 
             //ITERATING TO JOIN
             foreach (var product in products)
             {
-                product.Price = prices.FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice;
-
+                var price = prices.FirstOrDefault(x => x.ProductId == product.Id);
+                product.Price = (price == null ? 0 : price.UnitPrice);
                 var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
-                product.DiscountRate = discount == null ? 0 : discount.DiscountRate;
+                product.DiscountPercentage = discount == null ? 0 : discount.DiscountPercentage;
             }
 
             return products.OrderByDescending(x=>x.Id).Take(12).ToList();

@@ -10,13 +10,13 @@
             IsSucceeded = false;
         }
 
-        public OperationResult Failed(string msg="Operation Failed")
+        public OperationResult Failed(string msg=ApplicationMessages.OperationFailed)
         {
             IsSucceeded = false;
             Message = msg;
             return this;
         }
-        public OperationResult Succeeded(string msg = "Operation Succeeded")
+        public OperationResult Succeeded(string msg = ApplicationMessages.OperationSucceeded)
         {
             IsSucceeded = true;
             Message = msg;

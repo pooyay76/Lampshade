@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Application;
-using ShopManagement.Application.Contracts.ProductAgg;
+using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Domain.ProductAgg;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,14 @@ namespace ShopManagement.Application
     {
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
+        private readonly IFileUploader fileUploader;
+        private const string filePath = "Product";
 
-        public ProductApplication(IProductRepository productRepository, IMapper mapper)
+        public ProductApplication(IProductRepository productRepository, IMapper mapper, IFileUploader fileUploader)
         {
             this.productRepository = productRepository;
             this.mapper = mapper;
+            this.fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateProduct dataEntry)
@@ -25,7 +28,8 @@ namespace ShopManagement.Application
             if (productRepository.Exists(x => x.Name == dataEntry.Name))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
             string slug = dataEntry.Name.Slugify();
-            var data = new Product(dataEntry.Name, dataEntry.Description,dataEntry.Picture,
+            string pictureName = fileUploader.Upload(dataEntry.Picture,filePath);
+            var data = new Product(dataEntry.Name, dataEntry.Description, pictureName,
                 dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription,
                 slug, dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription) ;
             productRepository.Create(data);
@@ -47,8 +51,8 @@ namespace ShopManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
 
             string slug = dataEntry.Name.Slugify();
-
-            entity.Edit(dataEntry.Name, dataEntry.Description, dataEntry.Picture,
+            string pictureName = fileUploader.Upload(dataEntry.Picture, filePath);
+            entity.Edit(dataEntry.Name, dataEntry.Description, pictureName,
                 dataEntry.PictureAlt, dataEntry.PictureTitle, dataEntry.Keywords, dataEntry.MetaDescription, slug,
                 dataEntry.CategoryId, dataEntry.Code, dataEntry.ShortDescription);
 
@@ -61,7 +65,7 @@ namespace ShopManagement.Application
         {
             var entity = productRepository.GetProduct(id);
 
-            //if entity not found return null
+            //if entity was not found return null
             if (entity == null)
                 return null;
             return mapper.Map<Product,EditProduct>(entity);

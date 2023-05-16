@@ -57,7 +57,7 @@
                         <td>@item.Title</td>
                         <td>@item.Heading</td>
                         <td><button>@item.BtnText</button></td>
-                        <td><img style="max-height:250px;" src="@item.Picture" /></td>
+                        <td><img style="max-height:250px;" src="~/Uploads/Slide/@item.Picture" /></td>
                         <td>@item.Text</td>
                         <td>
                             <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>

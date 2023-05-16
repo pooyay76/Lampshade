@@ -9,8 +9,4 @@
     <ProjectReference Include="..\DiscountManagement.Domain\DiscountManagement.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AutoMapperProfiles\" />
-  </ItemGroup>
-
 </Project>

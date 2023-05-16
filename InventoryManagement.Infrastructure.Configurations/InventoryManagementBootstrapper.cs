@@ -1,5 +1,5 @@
 ﻿using InventoryManagement.Application;
-using InventoryManagement.Application.Contracts.InventoryAgg;
+using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using InventoryManagement.Infrastructure.EFCore;
 using InventoryManagement.Infrastructure.EFCore.Repository;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InventoryManagement.Infrastructure.Configurations
 {
-    public class InventoryManagementBootstrapper
+    public static class InventoryManagementBootstrapper
     {
         public static void Configure(IServiceCollection services, string connectionString)
         {

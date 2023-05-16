@@ -3,10 +3,10 @@ using Framework.Infrastructure;
 using System.Linq;
 using System.Collections.Generic;
 using ShopManagement.Infrastructure.EfCore;
-using _0_Framework.Application;
-using DiscountManagement.Application.Contracts.CustomerDiscountAgg;
+using Framework.Application;
+using DiscountManagement.Application.Contracts.CustomerDiscount;
 
-namespace DiscountManagement.Infrastructure.EfCore.Repositories
+namespace DiscountManagement.Infrastructure.EfCore.Repository
 {
     public class CustomerDiscountRepository : RepositoryBase<long, CustomerDiscount>, ICustomerDiscountRepository
     {
@@ -42,7 +42,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repositories
 
 
 
-            var products = shopContext.Products.Select(x=>new { x.Name,x.Id }).AsEnumerable();
+            var products = shopContext.Products.Select(x => new { x.Name, x.Id }).AsEnumerable();
             //left join query on products
 
 
@@ -50,11 +50,11 @@ namespace DiscountManagement.Infrastructure.EfCore.Repositories
             //                join p in products.AsEnumerable().DefaultIfEmpty() on q.ProductId equals p.ProductId
             //                select new CustomerDiscountViewModel
 
-            var result = query.AsEnumerable().Join(products, x => x.ProductId, y => y.Id,(x,y)=> new CustomerDiscountViewModel() 
+            var result = query.AsEnumerable().Join(products, x => x.ProductId, y => y.Id, (x, y) => new CustomerDiscountViewModel()
 
             {
                 Id = x.Id,
-                DiscountRate = x.DiscountPercentage,
+                DiscountPercentage = x.DiscountPercentage,
                 EndDate = x.EndDate,
                 EndDateFa = x.EndDate.ToFarsi(),
                 StartDateFa = x.StartDate.ToFarsi(),
@@ -66,7 +66,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repositories
 
 
 
-            return result.OrderByDescending(x=>x.Id);
+            return result.OrderByDescending(x => x.Id);
 
         }
 

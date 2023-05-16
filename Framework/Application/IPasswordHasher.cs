@@ -1,4 +1,4 @@
-﻿namespace _0_Framework.Application
+﻿namespace Framework.Application
 {
     public interface IPasswordHasher
     {

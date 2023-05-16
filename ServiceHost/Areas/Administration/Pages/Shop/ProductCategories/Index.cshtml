@@ -46,7 +46,7 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td><img style="max-width:300px;" src="@item.Picture" /></td>
+                        <td><img style="max-width:250px;" src="~/Uploads/ProductCategory/@item.Picture" /></td>
                         <td>@item.CreationDateTime</td>
                         <td class="align-content-center">
                             <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new {id = item.Id })'>ویرایش</a>

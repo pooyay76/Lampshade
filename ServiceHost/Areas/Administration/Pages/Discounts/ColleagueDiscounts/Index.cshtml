@@ -38,7 +38,7 @@
                     <th>شناسه</th>
                     <th>نام تخفیف</th>
                     <th>محصول</th>
-                    <th>ضریب تخفیف</th>
+                    <th>درصد تخفیف</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -49,7 +49,7 @@
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.ProductName</td>
-                    <td>@item.DiscountRate</td>
+                        <td>@item.DiscountPercentage</td>
                     <td>
                         <a class="btn tbn-sm btn-warning" href='#showmodal=@Url.Page("./Index","Edit",new { Id = item.Id})'>ویرایش</a>
                         <a class="btn tbn-sm btn-danger" href="#">حذف</a>

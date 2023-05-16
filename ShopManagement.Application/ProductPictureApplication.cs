@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Application;
-using ShopManagement.Application.Contracts.ProductPictureAgg;
+using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Domain.ProductPictureAgg;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +10,22 @@ namespace ShopManagement.Application
     public class ProductPictureApplication : IProductPictureApplication
     {
         private readonly IProductPictureRepository productPictureRepository;
+        private readonly IFileUploader fileUploader;
         private readonly IMapper mapper;
+        private const string filePath = "ProductPicture";
 
-        public ProductPictureApplication(IProductPictureRepository productPictureRepository, IMapper mapper)
+        public ProductPictureApplication(IProductPictureRepository productPictureRepository, IMapper mapper, IFileUploader fileUploader)
         {
             this.productPictureRepository = productPictureRepository;
             this.mapper = mapper;
+            this.fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateProductPicture data)
         {
             var operation = new OperationResult();
-            if (productPictureRepository.Exists(x => x.Picture == data.Picture && x.ProductId != data.ProductId))
-                return operation.Failed(ApplicationMessages.DuplicatedMessage);
-            productPictureRepository.Create(new ProductPicture(data.Picture, data.PictureAlt,
+            string pictureName = fileUploader.Upload(data.Picture, filePath);
+            productPictureRepository.Create(new ProductPicture(pictureName, data.PictureAlt,
                 data.PictureTitle, data.ProductId));
             return operation.Succeeded();
         }
@@ -37,11 +39,9 @@ namespace ShopManagement.Application
             if (target == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
 
-            //Duplicated
-            if (productPictureRepository.Exists(x => x.Picture == data.Picture && x.Id != data.Id))
-                return operation.Failed(ApplicationMessages.DuplicatedMessage);
+            string pictureName = fileUploader.Upload(data.Picture, filePath);
 
-            target.Edit(data.Picture, data.PictureAlt, data.PictureTitle, data.ProductId);
+            target.Edit(pictureName, data.PictureAlt, data.PictureTitle, data.ProductId);
 
             productPictureRepository.Update(target);
             return operation.Succeeded();

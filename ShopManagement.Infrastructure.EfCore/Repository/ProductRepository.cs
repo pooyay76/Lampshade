@@ -1,6 +1,6 @@
 ﻿using Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Application.Contracts.ProductAgg;
+using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Domain.ProductAgg;
 using System.Collections.Generic;
 using System.Linq;

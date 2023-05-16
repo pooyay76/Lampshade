@@ -1,6 +1,6 @@
 ﻿using DiscountManagement.Domain.ColleagueDiscountAgg;
 using DiscountManagement.Domain.CustomerDiscountAgg;
-using DiscountManagement.Infrastructure.EfCore.Mapping;
+using DiscountManagement.Infrastructure.EfCore.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiscountManagement.Infrastructure.EfCore

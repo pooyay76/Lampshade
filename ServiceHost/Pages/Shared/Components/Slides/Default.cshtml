@@ -1,4 +1,8 @@
-﻿@model List<LampshadeQuery.Contracts.SlideAgg.SlideQueryModel>
+﻿@using LampshadeQuery.Contracts.Slide;
+@model List<SlideQueryModel>
+
+<!--====================  Hero slider area  ====================-->
+
 <div class="hero-slider-area section-space">
     <div class="container wide">
         <div class="row">
@@ -26,24 +30,24 @@
                         {"breakpoint":575, "settings": {"slidesToShow": 1, "arrows": false} },
                         {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
                     ]'>
-
                         <!--=======  single slider item  =======-->
-                        @foreach(var slide in Model)
-                        {
-                            <div class="single-slider-item">
-                            <div class="hero-slider-item-wrapper hero-slider-bg-1">
+
+                    @foreach(var slide in Model)
+                    {
+                        <div class="single-slider-item">
+                            <div class="hero-slider-item-wrapper">
                                 <div class="container">
-                                                <img id="slider-image img-fluid" src="@slide.Picture" alt="@slide.PictureAlt" title="@slide.PictureTitle"/>
+                                <img src="~/Uploads/Slide/@slide.Picture" alt="@slide.PictureAlt" title="@slide.PictureTitle" />
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="hero-slider-content hero-slider-content--left-space">
-                                                <p class="slider-title slider-title--big-light">@slide.Title</p>
-                                                <p class="slider-title slider-title--big-bold">@slide.Heading</p>
+                                                <p class="slider-title slider-title--big-light">@slide.Heading</p>
+                                                <p class="slider-title slider-title--big-bold">@slide.Title</p>
                                                 <p class="slider-title slider-title--small">
                                                     @slide.Text
                                                 </p>
                                                 <a class="hero-slider-button" href="@slide.Link">
-                                                    @slide.BtnText <i class="ion-ios-plus-empty"></i>
+                                                    @slide.BtnText<i class="ion-ios-plus-empty"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -51,15 +55,15 @@
                                 </div>
                             </div>
                         </div>
-                        }
-
+                    }
                         <!--=======  End of single slider item  =======-->
-
-
                     </div>
                 </div>
 
+                <!--=======  End of hero slider wrapper  =======-->
             </div>
         </div>
     </div>
 </div>
+
+<!--====================  End of hero slider area  ====================-->

@@ -1,4 +1,5 @@
-﻿using Framework.Domain;
+﻿using AccountManagement.Domain.RoleAgg;
+using Framework.Domain;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -9,6 +10,7 @@ namespace AccountManagement.Domain.AccountAgg
         public string Password { get; private set; }
         public string ProfilePicture { get; private set; }
         public long RoleId { get; private set; }
+        public Role Role { get; private set; }
         public string PhoneNumber { get; private set; }
 
         public Account(string fullName, string username, string password, string profilePicture, long roleId, string phoneNumber)
@@ -25,7 +27,7 @@ namespace AccountManagement.Domain.AccountAgg
         {
             FullName = fullName;
             Username = username;
-            if (!string.IsNullOrWhiteSpace(profilePicture))
+            if (string.IsNullOrWhiteSpace(profilePicture) == false)
                 ProfilePicture = profilePicture;
             RoleId = roleId;
             PhoneNumber = phoneNumber;

@@ -20,7 +20,7 @@ namespace ShopManagement.Infrastructure.EfCore.Mapping
             builder.Property(x => x.ShortDescription).HasMaxLength(255);
             builder.Property(x => x.Picture).HasMaxLength(1000).IsRequired();
             builder.Property(x => x.CategoryId).IsRequired();
-            builder.Property(x => x.Code).IsRequired(false);
+            builder.Property(x => x.Code).IsRequired();
 
             builder.Property(x => x.PictureAlt).HasMaxLength(255);
             builder.Property(x => x.Slug).HasMaxLength(300).IsRequired();

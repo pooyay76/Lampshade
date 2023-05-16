@@ -174,9 +174,6 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BtnColor")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BtnText")
                         .HasColumnType("nvarchar(max)");
 

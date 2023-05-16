@@ -1,4 +1,4 @@
-﻿@model ShopManagement.Application.Contracts.ProductCategoryAgg.CreateProductCategory;    
+﻿@model ShopManagement.Application.Contracts.ProductCategory.CreateProductCategory;    
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -31,7 +31,7 @@
                     <div class="col-md-10">
 
                         <label class="control-label" asp-for="@Model.Picture">عکس</label>
-                        <input class="form-control" asp-for="@Model.Picture" type="text" />
+                        <input class="form-control" asp-for="@Model.Picture" type="file" />
                         <span asp-validation-for="@Model.Picture" class="text-danger"></span>
                     </div>
 

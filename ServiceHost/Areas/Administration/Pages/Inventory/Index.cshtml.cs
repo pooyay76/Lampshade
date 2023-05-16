@@ -1,18 +1,16 @@
 using System.Collections.Generic;
 using Framework.Application;
-using InventoryManagement.Application.Contracts.InventoryAgg;
+using InventoryManagement.Application.Contracts.Inventory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopManagement.Application.Contracts.ProductAgg;
+using ShopManagement.Application.Contracts.Product;
 
 namespace ServiceHost.Areas.Administration.Pages.Inventory
 {
     public class IndexModel : PageModel
     {
         private readonly IProductApplication productApplication;
-
-
         private readonly IInventoryApplication inventoryApplication;
         public InventorySearchModel SearchModel { get; set; }
         public List<InventoryViewModel> Items { get; set; }
@@ -70,7 +68,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
 
         public PartialViewResult OnGetIncrease(long id)
         {
-            var data = inventoryApplication.Get(id);
+            var data = inventoryApplication.GetInventory(id);
             if (data == null)
                 return null;
             const long operatorId = 1;
@@ -79,7 +77,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
 
         public PartialViewResult OnGetDecrease(long id)
         {
-            var data = inventoryApplication.Get(id);
+            var data = inventoryApplication.GetInventory(id);
             if (data == null)
                 return null;
             const long operatorId = 1;
@@ -101,10 +99,10 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
         }
 
 
-        public PartialViewResult OnGetReport(long id)
+        public PartialViewResult OnGetProductReport(long id)
         {
            
-            return Partial("./Report", inventoryApplication.GetInventoryLog(id));
+            return Partial("./ProductReport", inventoryApplication.GetInventoryLog(id));
         }
     }
 }

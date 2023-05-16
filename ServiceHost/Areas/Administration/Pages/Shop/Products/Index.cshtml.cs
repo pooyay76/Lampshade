@@ -2,8 +2,8 @@ using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopManagement.Application.Contracts.ProductAgg;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
+using ShopManagement.Application.Contracts.Product;
+using ShopManagement.Application.Contracts.ProductCategory;
 using System.Collections.Generic;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Products

@@ -1,4 +1,5 @@
-﻿@model List<LampshadeQuery.Contracts.ProductAgg.ProductQueryModel>
+﻿@using LampshadeQuery.Contracts.Product;
+@model List<ProductQueryModel>
 
 
 <div class="single-row-slider-area section-space">
@@ -41,14 +42,14 @@
                                 <div class="single-grid-product">
                                     <div class="single-grid-product__image">
                                         <div class="single-grid-product__label">
-                                            @if (product.DiscountRate != 0)
+                                            @if (product.DiscountPercentage != 0)
                                             {
-                                                <span class="sale">-@product.DiscountRate%</span>
+                                                <span class="sale">-@product.DiscountPercentage %</span>
                                                 <span class="new">جدید</span>
                                             }
                                         </div>
                                         <a asp-page="/Product" asp-route-id="@product.Slug">
-                                            <img src="~/ProductPictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.PictureTitle">
+                                            <img src="~/Uploads/Product/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.PictureTitle">
                                         </a>
                                     </div>
                                     <div class="single-grid-product__content">
@@ -67,14 +68,14 @@
                                             <a asp-page="/Product" asp-route-id="@product.Slug">@product.Name</a>
                                         </h3>
                                         <p class="single-grid-product__price">
-                                            @if (product.DiscountRate != 0)
+                                            @if (product.DiscountPercentage != 0)
                                             {
-                                                <span class="discounted-price">@product.PriceWithDiscount تومان</span>
-                                                <span class="main-price discounted">@product.Price تومان</span>
+                                                <span class="discounted-price">@product.FinalPriceUI تومان</span>
+                                                <span class="main-price discounted">@product.BasePriceUI تومان</span>
                                             }
                                             else
                                             {
-                                                <span class="main-price">@product.Price تومان</span>
+                                                <span class="main-price">@product.BasePriceUI تومان</span>
                                             }
                                         </p>
                                     </div>

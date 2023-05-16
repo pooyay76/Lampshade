@@ -1,4 +1,4 @@
-﻿@model AccountManagement.Application.Contracts.AccountAgg.CreateAccount;
+﻿@model AccountManagement.Application.Contracts.Account.CreateAccount;
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -31,8 +31,10 @@
                         </div>
                         <div class="col-md-6">
 
-                            <label class="control-label" asp-for="@Model.RoleId">شماره نقش کاربر</label>
-                            <input class="form-control" asp-for="@Model.RoleId" type="number" step="1" />
+                            <label class="control-label" asp-for="@Model.RoleId">نقش کاربر</label>
+                            <select class="form-control" asp-for="@Model.RoleId"  asp-items='new SelectList(Model.Roles,"Id","Name")'>
+                                <option value="0">انتخاب نقش کاربر</option>
+                            </select>
                             <span asp-validation-for="@Model.RoleId" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">

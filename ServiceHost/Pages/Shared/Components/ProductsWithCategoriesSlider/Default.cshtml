@@ -1,4 +1,5 @@
-﻿@model List<LampshadeQuery.Contracts.ProductCategoryAgg.ProductCategoryQueryModel>
+﻿@using LampshadeQuery.Contracts.ProductCategory;
+@model List<ProductCategoryQueryModel>
 
 <div class="single-row-slider-tab-area section-space">
     <div class="container">
@@ -56,14 +57,14 @@
                                             <div class="col">
                                                 <div class="single-grid-product">
                                                     <div class="single-grid-product__image">
-                                                        @if (product.DiscountRate != 0)
+                                                        @if (product.DiscountPercentage != 0)
                                                         {
                                                             <div class="single-grid-product__label">
-                                                                <span class="sale">-@(product.DiscountRate.ToString() + "%");</span>
+                                                                <span style="direction:ltr" class="sale">-@(product.DiscountPercentage)%</span>
                                                             </div>
                                                         }
                                                         <a asp-page="/Product" asp-route-id="@product.Slug">
-                                                            <img src="~/ProductPictures/@product.Picture" title="@product.PictureTitle" class="img-fluid"
+                                                            <img src="~/Uploads/Product/@product.Picture" title="@product.PictureTitle" class="img-fluid"
                                                                  alt="@product.PictureAlt">
                                                         </a>
                                                     </div>
@@ -87,14 +88,14 @@
                                                             </a>
                                                         </h3>
                                                         <p class="single-grid-product__price">
-                                                            @if (product.DiscountRate != 0)
+                                                            @if (product.DiscountPercentage != 0)
                                                             {
-                                                                <span class="discounted-price">@product.PriceWithDiscount تومان</span>
-                                                                <span class="main-price discounted">@product.Price تومان</span>
+                                                                <span class="discounted-price">@product.FinalPriceUI تومان</span>
+                                                                <span class="main-price discounted">@product.BasePriceUI تومان</span>
                                                             }
                                                             else
                                                             {
-                                                                <span class="main-price">@product.Price تومان</span>
+                                                                <span class="main-price">@product.BasePriceUI تومان</span>
                                                             }
                                                         </p>
                                                     </div>

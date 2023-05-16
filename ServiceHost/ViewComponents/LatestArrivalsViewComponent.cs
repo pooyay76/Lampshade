@@ -1,4 +1,4 @@
-﻿using LampshadeQuery.Contracts.ProductAgg;
+﻿using LampshadeQuery.Contracts.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceHost.ViewComponents

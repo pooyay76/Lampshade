@@ -58,7 +58,110 @@ namespace AccountManagement.Infrastructure.EfCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("AccountManagement.Domain.RoleAgg.Role", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1L,
+                            CreationDateTime = new DateTime(2023, 5, 2, 18, 28, 39, 717, DateTimeKind.Local).AddTicks(6886),
+                            Name = "ادمین"
+                        },
+                        new
+                        {
+                            Id = -2L,
+                            CreationDateTime = new DateTime(2023, 5, 2, 18, 28, 39, 718, DateTimeKind.Local).AddTicks(9667),
+                            Name = "مسؤل فروش"
+                        },
+                        new
+                        {
+                            Id = -3L,
+                            CreationDateTime = new DateTime(2023, 5, 2, 18, 28, 39, 719, DateTimeKind.Local).AddTicks(259),
+                            Name = "مسؤل انبار"
+                        },
+                        new
+                        {
+                            Id = -4L,
+                            CreationDateTime = new DateTime(2023, 5, 2, 18, 28, 39, 719, DateTimeKind.Local).AddTicks(603),
+                            Name = "محتوا گذار"
+                        },
+                        new
+                        {
+                            Id = -5L,
+                            CreationDateTime = new DateTime(2023, 5, 2, 18, 28, 39, 719, DateTimeKind.Local).AddTicks(872),
+                            Name = "کاربر معمولی"
+                        });
+                });
+
+            modelBuilder.Entity("AccountManagement.Domain.AccountAgg.Account", b =>
+                {
+                    b.HasOne("AccountManagement.Domain.RoleAgg.Role", "Role")
+                        .WithMany("Accounts")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("AccountManagement.Domain.RoleAgg.Role", b =>
+                {
+                    b.OwnsMany("AccountManagement.Domain.RoleAgg.Permission", "Permissions", b1 =>
+                        {
+                            b1.Property<long>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("bigint")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<string>("Code")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<long>("RoleId")
+                                .HasColumnType("bigint");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RoleId");
+
+                            b1.ToTable("Role Permissions");
+
+                            b1.WithOwner("Role")
+                                .HasForeignKey("RoleId");
+
+                            b1.Navigation("Role");
+                        });
+
+                    b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("AccountManagement.Domain.RoleAgg.Role", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

@@ -29,8 +29,8 @@ namespace DiscountManagement.Infrastructure.EfCore.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("DiscountRate")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<decimal>("DiscountPercentage")
+                        .HasColumnType("decimal(4,2)");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
@@ -58,8 +58,8 @@ namespace DiscountManagement.Infrastructure.EfCore.Migrations
                     b.Property<DateTime>("CreationDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("DiscountPercentage")
-                        .HasColumnType("decimal(3,2)");
+                    b.Property<int>("DiscountPercentage")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");

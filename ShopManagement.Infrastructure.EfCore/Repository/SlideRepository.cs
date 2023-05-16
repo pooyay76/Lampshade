@@ -1,5 +1,5 @@
 ﻿using Framework.Infrastructure;
-using ShopManagement.Application.Contracts.SlideAgg;
+using ShopManagement.Application.Contracts.Slide;
 using ShopManagement.Domain.SlideAgg;
 using System.Collections.Generic;
 using System.Linq;

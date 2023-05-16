@@ -1,4 +1,4 @@
-﻿using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
+﻿using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using Framework.Domain;
 using System.Collections.Generic;
 

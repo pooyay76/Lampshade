@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework", "Framework\Framework.csproj", "{72534CE0-65A0-46B6-BD1B-2AE01E308F72}"
 EndProject
@@ -77,9 +77,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Infrastructure", "AM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Infrastructure.EfCore", "AccountManagement.Infrastructure.EfCore\AccountManagement.Infrastructure.EfCore.csproj", "{841D4F03-1C71-474F-AE3F-CC4EAEBF374C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.Configurations", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configurations.csproj", "{1247EA84-9F1F-4D89-9E0A-FD3EC51EC54D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Infrastructure.Configurations", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configurations.csproj", "{1247EA84-9F1F-4D89-9E0A-FD3EC51EC54D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Application", "AccountManagement.Application\AccountManagement.Application.csproj", "{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Application", "AccountManagement.Application\AccountManagement.Application.csproj", "{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlogManagement", "BlogManagement", "{38956DB9-8036-4E4A-B009-8660B73E382A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Domain", "BM.Domain", "{EC004BFF-F589-4676-BD88-46C6BB45A40E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Domain", "BlogManagement.Domain\BlogManagement.Domain.csproj", "{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Application", "BM.Application", "{CB793EE9-4899-499D-B6B3-CDBC8A87FE2F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Application", "BlogManagement.Application\BlogManagement.Application.csproj", "{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Application.Contracts", "BlogManagement.Application.Contracts\BlogManagement.Application.Contracts.csproj", "{F598C7DD-4968-4BA9-8211-02284FF83F92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Infrastructure", "BM.Infrastructure", "{CDC6B639-88AA-4609-8E8D-272F0271B8E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.EFCore", "BlogManagement.Infrastructure.EFCore\BlogManagement.Infrastructure.EFCore.csproj", "{F87BA6A8-F204-4091-97A5-925E71B6970C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.Configurations", "BlogManagement.Infrastructure.Bootstrapper\BlogManagement.Infrastructure.Configurations.csproj", "{FDA6E002-4DCC-4912-935A-FADC4953D621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -179,6 +197,26 @@ Global
 		{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F598C7DD-4968-4BA9-8211-02284FF83F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F598C7DD-4968-4BA9-8211-02284FF83F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F598C7DD-4968-4BA9-8211-02284FF83F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F598C7DD-4968-4BA9-8211-02284FF83F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F87BA6A8-F204-4091-97A5-925E71B6970C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F87BA6A8-F204-4091-97A5-925E71B6970C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F87BA6A8-F204-4091-97A5-925E71B6970C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F87BA6A8-F204-4091-97A5-925E71B6970C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA6E002-4DCC-4912-935A-FADC4953D621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA6E002-4DCC-4912-935A-FADC4953D621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA6E002-4DCC-4912-935A-FADC4953D621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA6E002-4DCC-4912-935A-FADC4953D621}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -216,6 +254,14 @@ Global
 		{841D4F03-1C71-474F-AE3F-CC4EAEBF374C} = {83CFE30B-B5E3-4F17-9EFE-E77BD81A3DBB}
 		{1247EA84-9F1F-4D89-9E0A-FD3EC51EC54D} = {83CFE30B-B5E3-4F17-9EFE-E77BD81A3DBB}
 		{ECA7B180-63D9-4AC7-92C0-9B6ADDF5CFBC} = {172087CF-F151-4DC5-BF86-9CC3CE5D3F3A}
+		{EC004BFF-F589-4676-BD88-46C6BB45A40E} = {38956DB9-8036-4E4A-B009-8660B73E382A}
+		{E06320D2-F1C7-4BEA-8331-E8E4B3EF0904} = {EC004BFF-F589-4676-BD88-46C6BB45A40E}
+		{CB793EE9-4899-499D-B6B3-CDBC8A87FE2F} = {38956DB9-8036-4E4A-B009-8660B73E382A}
+		{BD3CCC4F-936D-4E2A-B115-7BDCC4A6B8E3} = {CB793EE9-4899-499D-B6B3-CDBC8A87FE2F}
+		{F598C7DD-4968-4BA9-8211-02284FF83F92} = {CB793EE9-4899-499D-B6B3-CDBC8A87FE2F}
+		{CDC6B639-88AA-4609-8E8D-272F0271B8E9} = {38956DB9-8036-4E4A-B009-8660B73E382A}
+		{F87BA6A8-F204-4091-97A5-925E71B6970C} = {CDC6B639-88AA-4609-8E8D-272F0271B8E9}
+		{FDA6E002-4DCC-4912-935A-FADC4953D621} = {CDC6B639-88AA-4609-8E8D-272F0271B8E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C18791-0041-4A1C-A85F-F72F259E11B2}

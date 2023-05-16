@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
+using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Domain.ColleagueDiscountAgg;
 using Framework.Application;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace DiscountManagement.Application
         public OperationResult Define(DefineColleagueDiscount command)
         {
             OperationResult operation = new();
-            var data = new ColleagueDiscount(command.Name,command.ProductId,command.DiscountRate);
+            var data = new ColleagueDiscount(command.Name,command.ProductId,command.DiscountPercentage);
             if (colleagueDiscountRepository.Exists(x =>  x.Name == data.Name))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
@@ -43,7 +43,7 @@ namespace DiscountManagement.Application
             if (colleagueDiscountRepository.Exists(x => x.Name == command.Name && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
 
-            data.Edit(command.Name,command.ProductId,command.DiscountRate);
+            data.Edit(command.Name,command.ProductId,command.DiscountPercentage);
 
             colleagueDiscountRepository.Update(data);
 

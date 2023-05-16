@@ -1,5 +1,5 @@
 ﻿using Framework.Domain;
-using ShopManagement.Application.Contracts.ProductPictureAgg;
+using ShopManagement.Application.Contracts.ProductPicture;
 using System.Collections.Generic;
 
 namespace ShopManagement.Domain.ProductPictureAgg

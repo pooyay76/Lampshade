@@ -3,7 +3,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Options;
 
-namespace _0_Framework.Application
+namespace Framework.Application
 {
     public class PasswordHasher : IPasswordHasher
     {
@@ -19,9 +19,14 @@ namespace _0_Framework.Application
 
         public string Hash(string password)
         {
-            using var algorithm = new Rfc2898DeriveBytes(password, SaltSize, Options.Iterations, HashAlgorithmName.SHA256);
-            var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
-            var salt = Convert.ToBase64String(algorithm.Salt);
+            string salt;
+            string key;
+            using (var algorithm = new Rfc2898DeriveBytes(password, SaltSize, Options.Iterations, HashAlgorithmName.SHA256))
+            {
+                key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
+                salt = Convert.ToBase64String(algorithm.Salt);
+            }
+
 
             return $"{Options.Iterations}.{salt}.{key}";
         }

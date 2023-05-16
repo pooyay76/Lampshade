@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Application;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
+using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Domain.ProductCategoryAgg;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +10,14 @@ namespace ShopManagement.Application
     public class ProductCategoryApplication : IProductCategoryApplication
     {
         private readonly IProductCategoryRepository productCategoryRepository;
+        private readonly IFileUploader fileUploader;
         private readonly IMapper mapper;
-
-        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, IMapper mapper)
+        private const string filePath = "ProductCategory";
+        public ProductCategoryApplication(IProductCategoryRepository productCategoryRepository, IMapper mapper, IFileUploader fileUploader = null)
         {
             this.productCategoryRepository = productCategoryRepository;
             this.mapper = mapper;
+            this.fileUploader = fileUploader;
         }
 
         public ProductCategoryViewModel Get(long id)
@@ -33,7 +35,8 @@ namespace ShopManagement.Application
                 return operationResult.Failed(ApplicationMessages.DuplicatedMessage);
 
             string slug = form.Name.Slugify();
-            var productCategory = new ProductCategory(form.Name, form.Description, form.Picture, form.PictureAlt, form.PictureTitle,
+            string fileName = fileUploader.Upload(form.Picture, filePath);
+            var productCategory = new ProductCategory(form.Name, form.Description, fileName, form.PictureAlt, form.PictureTitle,
                 form.Keywords, form.MetaDescription, slug);
 
             productCategoryRepository.Create(productCategory);
@@ -50,8 +53,8 @@ namespace ShopManagement.Application
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
 
             string slug = form.Name.Slugify();
-
-            entity.Edit(form.Name, form.Description, form.Picture, form.PictureAlt,
+            string fileName = fileUploader.Upload(form.Picture, filePath);
+            entity.Edit(form.Name, form.Description, fileName, form.PictureAlt,
                 form.PictureTitle, form.Keywords, form.MetaDescription, slug);
 
             productCategoryRepository.Update(entity);

@@ -2,7 +2,7 @@
 using ShopManagement.Domain.ProductCategoryAgg;
 using Framework.Infrastructure;
 using System.Collections.Generic;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
+using ShopManagement.Application.Contracts.ProductCategory;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
 

@@ -1,7 +1,7 @@
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
+using ShopManagement.Application.Contracts.ProductCategory;
 using System.Collections.Generic;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
@@ -41,15 +41,23 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
         {
             if (ModelState.IsValid)
                 return new JsonResult(productCategoryApplication.Create(form));
-            OperationResult operation = new();
-            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+            else
+            {
+                OperationResult operation = new();
+                return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+            }
         }
         public JsonResult OnPostEdit(EditProductCategory form)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
                 return new JsonResult(productCategoryApplication.Edit(form));
-            OperationResult operation = new();
-            return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+            }
+            else
+            {
+                OperationResult operation = new();
+                return new JsonResult(operation.Failed(ValidationMessages.InvalidModelStateMessage));
+            }
         }
     }
 }

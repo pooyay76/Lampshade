@@ -1,4 +1,7 @@
-﻿var SinglePage = {};
+﻿const MaxFileSizeMb = 12;
+const AllowedExtensions = [".jpg", ".jpeg", ".png"];
+
+var SinglePage = {};
 
 SinglePage.LoadModal = function () {
     var url = window.location.hash.toLowerCase();
@@ -143,6 +146,9 @@ function checkSlugDuplication(url, dist) {
     });
 }
 
+function checkPasswordMatching()
+f
+
 function fillField(source, dist) {
     const value = $('#' + source).val();
     $('#' + dist).val(value);
@@ -187,14 +193,12 @@ function handleAjaxCall(method, url, data) {
 jQuery.validator.addMethod("maxFileSize",
     function (value, element, params) {
         var size = element.files[0].size;
-        var maxSize = 3 * 1024 * 1024;
-        if (size > maxSize)
-            return false;
-        else {
-            return true;
-        }
+        var maxSize = MaxFileSizeMb*1024*1024;
+        return size <= maxSize;
     });
 jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+
+
 
 //jQuery.validator.addMethod("maxFileSize",
 //    function (value, element, params) {

@@ -1,4 +1,4 @@
-﻿@model ShopManagement.Application.Contracts.ProductPictureAgg.EditProductPicture;
+﻿@model ShopManagement.Application.Contracts.ProductPicture.EditProductPicture;
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -26,7 +26,7 @@
                             <div class="col-md-8">
 
                                 <label class="control-label" asp-for="@Model.Picture">عکس محصول</label>
-                                <input class="form-control" asp-for="@Model.Picture" type="text" />
+                                <input class="form-control" asp-for="@Model.Picture" type="file" />
                                 <span asp-validation-for="@Model.Picture" class="text-danger"></span>
                             </div>
 

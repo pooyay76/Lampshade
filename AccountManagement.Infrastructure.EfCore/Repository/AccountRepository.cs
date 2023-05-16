@@ -1,4 +1,4 @@
-﻿using AccountManagement.Application.Contracts.AccountAgg;
+﻿using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.AccountAgg;
 using Framework.Infrastructure;
 using System.Collections.Generic;
@@ -15,13 +15,10 @@ namespace AccountManagement.Infrastructure.EfCore.Repository
             accountContext = context;
         }
 
-        //public EditAccount EditGet(long id)
-        //{
-        //    var target = accountContext.Accounts.FirstOrDefault(x=>x.Id == id);
-        //    if (target == null)
-        //        return null;
-        //    return mapper.Map<EditAccount>(target);
-        //}
+        public Account GetAccountByUsername(string username)
+        {
+           return accountContext.Accounts.FirstOrDefault(x => x.Username == username);
+        }
 
         public IEnumerable<Account> Search(AccountSearchModel command)
         {

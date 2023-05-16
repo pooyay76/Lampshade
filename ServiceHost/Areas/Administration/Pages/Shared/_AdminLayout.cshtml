@@ -6,7 +6,7 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
 
-    <link rel="shortcut icon" href="images/favicon_1.ico">
+    <link rel="shortcut icon" href="~/AdminTheme/images/favicon_1.ico">
 
     <title>Admin Dashboard</title>
 
@@ -183,7 +183,7 @@
                             </ul>
                         </li>
                         <li class="has_sub">
-                            <a href="#" class="waves-effect"><i class="md md-view-list"></i><span>مدیریت نخفیف ها</span><span class="pull-right"><i class="md md-add"></i></span></a>
+                            <a href="#" class="waves-effect"><i class="md md-view-list"></i><span>مدیریت تخفیف ها</span><span class="pull-right"><i class="md md-add"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a asp-page="/Discounts/CustomerDiscounts/Index">تخفیف مشتری</a></li>
                                 <li><a asp-page="/Discounts/ColleagueDiscounts/Index">تخفیف همکار</a></li>
@@ -194,11 +194,27 @@
                             <a href="#" class="waves-effect"><i class="md md-view-list"></i><span>مدیریت انبار</span><span class="pull-right"><i class="md md-add"></i></span></a>
                             <ul class="list-unstyled">
                                 <li><a asp-page="/Inventory/Index">افزایش یا کاهش تعداد کالا</a></li>
-                                <li><a asp-page="/Inventory/Report">گزارش انبار</a></li>
+                                <li><a asp-page="/Inventory/InventoriesReport" >گزارش انبار</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a asp-page="/Accounts/Index" class="waves-effect">مدیریت حساب ها</a>
+
+                        <li class="has_sub">
+                            <a href="#" class="-effect"><i class="md md-content"></i><span>مدیریت کاربران</span><span class="pull-right"><i class="md md-add"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a asp-page="/Accounts/Index" class="waves-effect">مدیریت حساب ها</a>
+                                </li>
+                                <li>
+                                    <a asp-page="/Roles/Index" class="waves-effect">مدیریت نقش ها</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has_sub">
+                            <a href="#" class="-effect"><i class="md md-content"></i><span>مدیریت بلاگ</span><span class="pull-right"><i class="md md-add"></i></span></a>
+                            <ul class="list-unstyled">
+                                <li><a asp-page="/Blog/ArticleCategories/Index">مدیریت دسته بندی مقالات</a></li>
+                                <li><a asp-page="/Blog/Articles/Index">مدیریت مقالات</a></li>
+                            </ul>
                         </li>
                         @*<li class="has_sub">
             <a href="#" class="waves-effect"><i class="md md-poll"></i><span> Charts </span><span class="pull-right"><i class="md md-add"></i></span></a>

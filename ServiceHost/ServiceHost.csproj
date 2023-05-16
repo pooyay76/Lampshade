@@ -9,18 +9,22 @@
     <Compile Remove="Pages\Shared\Components\LatestArticles\**" />
     <Compile Remove="Pages\Shared\Components\Menu\**" />
     <Compile Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
+    <Compile Remove="wwwroot\Uploads\NewFolder\**" />
     <Content Remove="Pages\Shared\Components\Footer\**" />
     <Content Remove="Pages\Shared\Components\LatestArticles\**" />
     <Content Remove="Pages\Shared\Components\Menu\**" />
     <Content Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
+    <Content Remove="wwwroot\Uploads\NewFolder\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\Footer\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\LatestArticles\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\Menu\**" />
     <EmbeddedResource Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
+    <EmbeddedResource Remove="wwwroot\Uploads\NewFolder\**" />
     <None Remove="Pages\Shared\Components\Footer\**" />
     <None Remove="Pages\Shared\Components\LatestArticles\**" />
     <None Remove="Pages\Shared\Components\Menu\**" />
     <None Remove="Pages\Shared\Components\ProductCategoryWithProduct\**" />
+    <None Remove="wwwroot\Uploads\NewFolder\**" />
   </ItemGroup>
 
 
@@ -342,6 +346,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AccountManagement.Application.Contracts\AccountManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configurations.csproj" />
+    <ProjectReference Include="..\BlogManagement.Application.Contracts\BlogManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\BlogManagement.Infrastructure.Bootstrapper\BlogManagement.Infrastructure.Configurations.csproj" />
     <ProjectReference Include="..\DiscountManagement.Infrastructure.Configurations\DiscountManagement.Infrastructure.Configurations.csproj" />
     <ProjectReference Include="..\InventoryManagement.Application.Contracts\InventoryManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\InventoryManagement.Infrastructure.Configurations\InventoryManagement.Infrastructure.Configurations.csproj" />
@@ -350,13 +356,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Pages\Blog\Articles\" />
+    <Folder Include="wwwroot\Uploads\" />
+    <Folder Include="wwwroot\Uploads\ProductCategory\" />
+    <Folder Include="wwwroot\Uploads\ProductPicture\" />
+    <Folder Include="wwwroot\Uploads\Product\" />
   </ItemGroup>
 
 </Project>

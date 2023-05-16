@@ -1,8 +1,7 @@
-﻿using _0_Framework.Application;
-using DiscountManagement.Infrastructure.EfCore;
+﻿using DiscountManagement.Infrastructure.EfCore;
 using InventoryManagement.Infrastructure.EFCore;
-using LampshadeQuery.Contracts.ProductAgg;
-using LampshadeQuery.Contracts.ProductCategoryAgg;
+using LampshadeQuery.Contracts.Product;
+using LampshadeQuery.Contracts.ProductCategory;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.EfCore;
@@ -39,8 +38,8 @@ namespace LampshadeQuery.Query
 
             //LIST OF ACTIVE DISCOUNTS
             var discounts = discountContext.CustomerDiscounts
-                .Where(x => x.EndDate > DateTime.Now && x.StartDate <= DateTime.Now)
-                .Select(x => new { EndDate = x.EndDate, DiscountRate = x.DiscountPercentage, ProductId = x.ProductId })
+                .Where(x => x.EndDate >= DateTime.Now && x.StartDate <= DateTime.Now)
+                .Select(x => new { EndDate = x.EndDate, DiscountPercentage = x.DiscountPercentage, ProductId = x.ProductId })
                 .AsNoTracking();
 
 
@@ -62,10 +61,11 @@ namespace LampshadeQuery.Query
                 //foreach category we have many products which might have discounts and must have prices
                 foreach (var product in category.Products)
                 {
-                    product.Price = prices.FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice;
+                    var price = prices.FirstOrDefault(x => x.ProductId == product.Id)?.UnitPrice;
+                    product.Price = price ?? 0;
 
                     var discount = discounts.FirstOrDefault(x => x.ProductId == product.Id);
-                    product.DiscountRate = discount == null ? 0 : discount.DiscountRate;
+                    product.DiscountPercentage = (discount == null ? 0 : discount.DiscountPercentage);
                 }
 
             }
@@ -132,5 +132,22 @@ namespace LampshadeQuery.Query
             };
         }
 
+        public ProductCategoryQueryModel GetProductCategoryWithProducts(long id)
+        {
+            var category = shopContext.ProductCategories.Include(x=>x.Products).FirstOrDefault(x => x.Id == id);
+            if (category == null)
+                return null;
+            return new ProductCategoryQueryModel()
+            { 
+            Id = category.Id,
+            Name = category.Name,
+            Picture = category.Picture,
+            PictureAlt = category.PictureAlt,
+            PictureTitle = category.PictureTitle,
+            Slug = category.Slug,
+            Products = category.Products.Select(x=>new ProductQueryModel { Id = x.Id, Name = x.Name, Picture = x.Picture,Slug = x.Slug }).ToList()
+            };
+
+        }
     }
 }

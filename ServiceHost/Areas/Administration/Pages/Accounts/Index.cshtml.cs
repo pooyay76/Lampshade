@@ -1,4 +1,5 @@
-using AccountManagement.Application.Contracts.AccountAgg;
+using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Role;
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,11 +10,15 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts
     public class IndexModel : PageModel
     {
         private readonly IAccountApplication accountApplication;
+        private readonly IRoleApplication roleApplication;
         public AccountSearchModel SearchModel { get; set; }
         public List<AccountViewModel> Items { get; set; }
-        public IndexModel(IAccountApplication accountApplication)
+        public List<RoleViewModel> Roles { get; set; }
+
+        public IndexModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
         {
             this.accountApplication = accountApplication;
+            this.roleApplication = roleApplication;
         }
 
         public void OnGet(AccountSearchModel searchModel)
@@ -23,11 +28,17 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts
         }
         public PartialViewResult OnGetCreate()
         {
-            return Partial("./Create", new CreateAccount());
+            var result = new CreateAccount
+            {
+                Roles = roleApplication.Search("")
+            };
+            return Partial("./Create", result);
         }
         public PartialViewResult OnGetEdit(long id)
         {
-            return Partial("./Edit", accountApplication.EditGet(id));
+            var result = accountApplication.EditGet(id);
+            result.Roles = roleApplication.Search("");
+            return Partial("./Edit", result);
         }
         public PartialViewResult OnGetChangePassword(long id)
         {

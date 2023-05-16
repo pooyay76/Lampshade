@@ -1,14 +1,14 @@
 ﻿using Framework.Application;
-using InventoryManagement.Application.Contracts.InventoryAgg;
+using InventoryManagement.Application.Contracts.Inventory;
 using InventoryManagement.Domain.InventoryAgg;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace InventoryManagement.Application
 {
     public class InventoryApplication : IInventoryApplication
     {
         private readonly IInventoryRepository inventoryRepository;
-
         public InventoryApplication(IInventoryRepository inventoryRepository)
         {
             this.inventoryRepository = inventoryRepository;
@@ -31,6 +31,7 @@ namespace InventoryManagement.Application
             if (data == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
             data.Edit(command.ProductId, command.UnitPrice);
+            inventoryRepository.Update(data);
             return operation.Succeeded();
 
         }
@@ -45,11 +46,23 @@ namespace InventoryManagement.Application
 
         public OperationResult Increase(IncreaseInventory command)
         {
-                return inventoryRepository.Increase(command.InventoryId, command.OperatorId, command.Count, command.Description);
+            var data = inventoryRepository.Get(command.InventoryId);
+            OperationResult operation = new();
+            if (data == null)
+                return operation.Failed(ApplicationMessages.NotFoundMessage);
+            data.Increase(command.Count, command.OperatorId, command.Description);
+            inventoryRepository.Update(data);
+            return operation.Succeeded();
         }
         public OperationResult Decrease(DecreaseInventory command)
         {
-            return inventoryRepository.Decrease(command.InventoryId, command.OperatorId, command.OrderId, command.Count, command.Description);
+            var data = inventoryRepository.Get(command.InventoryId);
+            OperationResult operation = new();
+            if (data == null)
+                return operation.Failed(ApplicationMessages.NotFoundMessage);
+            data.Decrease(command.Count,command.OrderId, command.OperatorId, command.Description);
+            inventoryRepository.Update(data);
+            return operation.Succeeded();
         }
         public OperationResult Decrease(List<DecreaseInventory> command)
         {
@@ -67,17 +80,34 @@ namespace InventoryManagement.Application
 
         public List<InventoryViewModel> Search(InventorySearchModel command)
         {
-            return inventoryRepository.Search(command);
+            return inventoryRepository.Search(command).ToList();
         }
 
-        public InventoryViewModel Get(long id)
+        public InventoryViewModel GetInventory(long id)
         {
             return inventoryRepository.GetInventoryWithProduct(id);
         }
 
         public List<InventoryOperationViewModel> GetInventoryLog(long inventoryId)
         {
-            return inventoryRepository.GetInventoryLog(inventoryId);
+            return inventoryRepository.Get(inventoryId).InventoryOperations.Select(x=> new InventoryOperationViewModel
+            {
+                Count = x.Count,
+                CountBeforeOperation = x.CountBeforeOperation,
+                Description = x.Description,
+                Id = x.Id,
+                IsSold = x.IsSold,
+                OperationDateTime= x.OperationDateTime,
+                OperatorId = x.OperatorId,
+                OperatorName = "مدیر",
+                OrderId = x.OrderId
+
+            }).ToList();
+        }
+
+        public List<InventoryOperationViewModel> GetInventoryLogs()
+        {
+            return inventoryRepository.GetInventoryLogs();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Framework.Domain;
-using ShopManagement.Application.Contracts.SlideAgg;
+using ShopManagement.Application.Contracts.Slide;
 using System.Collections.Generic;
 
 namespace ShopManagement.Domain.SlideAgg

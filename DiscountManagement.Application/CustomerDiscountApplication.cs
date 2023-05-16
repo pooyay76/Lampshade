@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application;
-using DiscountManagement.Application.Contracts.CustomerDiscountAgg;
+﻿using DiscountManagement.Application.Contracts.CustomerDiscount;
 using DiscountManagement.Domain.CustomerDiscountAgg;
 using Framework.Application;
 using System.Collections.Generic;
@@ -20,7 +19,7 @@ namespace DiscountManagement.Application
         {
             OperationResult operation = new();
             var x = command.StartDate.ToGeorgianDateTime();
-            var data = new CustomerDiscount(command.ProductId, command.StartDate.ToGeorgianDateTime(),command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountRate);
+            var data = new CustomerDiscount(command.ProductId, command.StartDate.ToGeorgianDateTime(),command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountPercentage);
             if (customerDiscountRepository.Exists(x => x.StartDate == data.StartDate && x.EndDate == data.EndDate && x.Reason == data.Reason))
             {
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
@@ -41,7 +40,7 @@ namespace DiscountManagement.Application
             && x.EndDate == command.EndDate.ToGeorgianDateTime() && x.Reason == command.Reason && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedMessage);
 
-            data.Edit(command.ProductId, command.StartDate.ToGeorgianDateTime(), command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountRate);
+            data.Edit(command.ProductId, command.StartDate.ToGeorgianDateTime(), command.EndDate.ToGeorgianDateTime(), command.Reason, command.DiscountPercentage);
 
             customerDiscountRepository.Update(data);
 
@@ -53,12 +52,12 @@ namespace DiscountManagement.Application
             var data = customerDiscountRepository.Get(id);
             return new EditCustomerDiscount
             {
-                DiscountRate = data.DiscountPercentage,
-                EndDate = data.EndDate.ToFarsi().ToString(),
+                DiscountPercentage = data.DiscountPercentage,
+                EndDate = data.EndDate.Date.ToString(),
                 Id = data.Id,
                 ProductId = data.ProductId,
                 Reason = data.Reason,
-                StartDate = data.StartDate.ToFarsi().ToString()
+                StartDate = data.StartDate.Date.ToString()
             };
         }
 

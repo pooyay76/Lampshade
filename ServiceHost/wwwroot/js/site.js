@@ -2,6 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 // Write your JavaScript code.
 var SinglePage = {};
+const MaxFileSizeMb = 12;
+const AllowedExtensions = ["jpg", "jpeg", "png"];
 
 var ShowModal = function () {
     $("#modal").modal("show");
@@ -118,3 +120,17 @@ function fillField(source, dist) {
     const value = $('#' + source).val();
     $('#' + dist).val(value);
 }
+
+jQuery.validator.addMethod("maxFileSize",
+    function (value, element, params) {
+        return element.files[0].size <= (MaxFileSizeMb * 1024 * 1024);
+    });
+jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+
+jQuery.validator.addMethod("allowedFileExtensions",
+    function (value, element, params) {
+        var extension = element.files[0].name.split(".").pop();
+        return AllowedExtensions.includes(extension);
+    }
+);
+jQuery.validator.unobtrusive.adapters.addBool("allowedFileExtensions");

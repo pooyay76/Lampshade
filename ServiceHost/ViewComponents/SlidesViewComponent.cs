@@ -1,4 +1,4 @@
-﻿using LampshadeQuery.Contracts.SlideAgg;
+﻿using LampshadeQuery.Contracts.Slide;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceHost.ViewComponents

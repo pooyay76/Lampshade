@@ -1,4 +1,4 @@
-﻿@model ShopManagement.Application.Contracts.SlideAgg.CreateSlide;
+﻿@model ShopManagement.Application.Contracts.Slide.CreateSlide;
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -15,13 +15,13 @@
                           data-action="refresh">
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="control-label" asp-for="@Model.Title">تیتر اسلاید</label>
+                                <label class="control-label" asp-for="@Model.Title">تیتر</label>
                                 <input class="form-control" asp-for="@Model.Title" type="text" />
                                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="control-label" asp-for="@Model.Heading">تیتر متن</label>
+                                <label class="control-label" asp-for="@Model.Heading">متن</label>
                                 <input class="form-control disabled" asp-for="@Model.Heading" type="text" />
                                 <span asp-validation-for="@Model.Heading" class="text-danger"></span>
                             </div>
@@ -31,7 +31,7 @@
                             <div class="col-md-12">
 
                                 <label class="control-label" asp-for="@Model.Picture">عکس</label>
-                                <input class="form-control" asp-for="@Model.Picture" type="text" />
+                                <input class="form-control" asp-for="@Model.Picture" type="file" />
                                 <span asp-validation-for="@Model.Picture" class="text-danger"></span>
                             </div>
                         </div>
@@ -61,11 +61,6 @@
                                 <label class="control-label" asp-for="@Model.BtnText">متن دکمه</label>
                                 <input class="form-control" asp-for="@Model.BtnText" type="text" />
                                 <span asp-validation-for="@Model.BtnText" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="control-label" asp-for="@Model.BtnColor">رنگ دکمه</label>
-                                <input class="form-control disabled" asp-for="@Model.BtnColor" type="text" />
-                                <span asp-validation-for="@Model.BtnColor" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row">

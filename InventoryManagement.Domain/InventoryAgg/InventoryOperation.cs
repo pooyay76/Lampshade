@@ -13,7 +13,7 @@ namespace InventoryManagement.Domain.InventoryAgg
             Description = description;
             InventoryId = inventoryId;
             CountBeforeOperation = countBeforeOperation;
-            OpeartionDateTime = DateTime.Now;
+            OperationDateTime = DateTime.Now;
         }
 
         public long Id { get; private set; }
@@ -25,7 +25,7 @@ namespace InventoryManagement.Domain.InventoryAgg
         public string Description { get; private set; }
         public long InventoryId { get; private set; }
         public Inventory Inventory { get; private set; }
-        public DateTime OpeartionDateTime { get; private set; }
+        public DateTime OperationDateTime { get; private set; }
 
     }
 }

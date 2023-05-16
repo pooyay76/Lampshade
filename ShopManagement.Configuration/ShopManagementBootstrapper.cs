@@ -1,14 +1,15 @@
-﻿using LampshadeQuery.Contracts.ProductAgg;
-using LampshadeQuery.Contracts.ProductCategoryAgg;
-using LampshadeQuery.Contracts.SlideAgg;
+﻿using LampshadeQuery.Contracts.Product;
+using LampshadeQuery.Contracts.ProductCategory;
+using LampshadeQuery.Contracts.Slide;
 using LampshadeQuery.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShopManagement.Application;
-using ShopManagement.Application.Contracts.ProductAgg;
-using ShopManagement.Application.Contracts.ProductCategoryAgg;
-using ShopManagement.Application.Contracts.ProductPictureAgg;
-using ShopManagement.Application.Contracts.SlideAgg;
+using ShopManagement.Application.AutoMapperProfiles;
+using ShopManagement.Application.Contracts.Product;
+using ShopManagement.Application.Contracts.ProductCategory;
+using ShopManagement.Application.Contracts.ProductPicture;
+using ShopManagement.Application.Contracts.Slide;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -22,6 +23,7 @@ namespace ShopManagement.Configuration
     {
         public static void Configure(IServiceCollection serviceCollection,string connectionString)
         {
+            serviceCollection.AddAutoMapper(typeof(ProductCategoryProfile).Assembly);
 
             serviceCollection.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             serviceCollection.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
@@ -36,7 +38,7 @@ namespace ShopManagement.Configuration
 
             serviceCollection.AddTransient<ISlideApplication, SlideApplication>();
             serviceCollection.AddTransient<ISlideRepository, SlideRepository>();
-            serviceCollection.AddTransient<ISlideQuery, SlideQuery>();
+            serviceCollection.AddTransient<ISlideQuery, SlidesQuery>();
 
             serviceCollection.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionString));
 

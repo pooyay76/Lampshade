@@ -1,4 +1,4 @@
-﻿@model ShopManagement.Application.Contracts.ProductAgg.CreateProduct;
+﻿@model ShopManagement.Application.Contracts.Product.CreateProduct;
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -14,26 +14,32 @@
                           data-ajax="true"
                           data-action="refresh">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
 
                                 <label class="control-label" asp-for="@Model.Name">نام محصول</label>
                                 <input class="form-control" asp-for="@Model.Name" onchange="makeSlug('Name','Slug')" type="text" />
                                 <span asp-validation-for="@Model.Name" class="text-danger"></span>
-                            </div>
+                        </div>                            
+                        <div class="col-md-6">
+
+                            <label class="control-label" asp-for="@Model.Slug">اسلاگ</label>
+                            <input class="form-control" asp-for="@Model.Slug" type="text" />
+                            <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                        </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <label class="control-label" asp-for="@Model.Code">کد محصول</label>
                                 <input class="form-control" asp-for="@Model.Code" type="text" />
                                 <span asp-validation-for="@Model.Code" class="text-danger"></span>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <label class="control-label" asp-for="@Model.Picture">عکس</label>
-                            <input class="form-control" asp-for="@Model.Picture" type="text" />
+                            <input class="form-control" asp-for="@Model.Picture" type="file" />
                             <span asp-validation-for="@Model.Picture" class="text-danger"></span>
+                        </div>
                         </div>
 
                         <div class="row">
@@ -83,19 +89,13 @@
 
                         <div class="row">
 
-                            <div class="col-md-7">
+                            <div class="col-md-12">
                                 <label class="control-label" asp-for="@Model.Keywords">کلمات کلیدی</label>
                                 <input class="form-control disabled" asp-for="@Model.Keywords" type="text" />
                                 <span asp-validation-for="@Model.Keywords" class="text-danger"></span>
 
                             </div>
 
-                            <div class="col-md-5">
-
-                                <label class="control-label" asp-for="@Model.Slug">اسلاگ</label>
-                                <input class="form-control"  asp-for="@Model.Slug" type="text" />
-                                <span asp-validation-for="@Model.Slug" class="text-danger"></span>
-                            </div>
 
                         </div>
                         <div class="modal-footer">

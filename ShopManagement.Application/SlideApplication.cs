@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Framework.Application;
-using ShopManagement.Application.Contracts.SlideAgg;
+using ShopManagement.Application.Contracts.Slide;
 using ShopManagement.Domain.SlideAgg;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace ShopManagement.Application
@@ -11,20 +12,21 @@ namespace ShopManagement.Application
     {
         private readonly ISlideRepository slideRepository;
         private readonly IMapper mapper;
-
-        public SlideApplication(ISlideRepository slideRepository, IMapper mapper)
+        private readonly IFileUploader fileUploader;
+        private const string filePath = "Slide";
+        public SlideApplication(ISlideRepository slideRepository, IMapper mapper, IFileUploader fileUploader)
         {
             this.slideRepository = slideRepository;
             this.mapper = mapper;
+            this.fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateSlide slide)
         {
             var operation = new OperationResult();
-            if (slideRepository.Exists(x => x.Title == slide.Title && x.Text == slide.Text && x.Heading == slide.Heading && x.Picture==slide.Picture))
-                return operation.Failed(ApplicationMessages.DuplicatedMessage);
-            var entity = new Slide(slide.Picture,slide.Link, slide.PictureTitle, slide.PictureAlt, slide.Heading,
-                slide.Title, slide.Text, slide.BtnText, slide.BtnColor);
+            string fileName = fileUploader.Upload(slide.Picture, filePath);
+            var entity = new Slide(fileName, slide.Link, slide.PictureTitle, slide.PictureAlt, slide.Heading,
+                slide.Title, slide.Text, slide.BtnText);
             slideRepository.Create(entity);
             return operation.Succeeded();
         }
@@ -35,9 +37,9 @@ namespace ShopManagement.Application
             var target = slideRepository.GetSlide(command.Id);
             if (target == null)
                 return operation.Failed(ApplicationMessages.NotFoundMessage);
-            if (slideRepository.Exists(x=>x.Picture == command.Picture))
-            target.Edit(command.Picture,command.Link, command.PictureTitle, command.PictureAlt, command.Heading,
-                command.Title, command.Text, command.BtnText, command.BtnColor);
+            string fileName = fileUploader.Upload(command.Picture, filePath);
+            target.Edit(fileName, command.Link, command.PictureTitle, command.PictureAlt, command.Heading,
+                command.Title, command.Text, command.BtnText);
             slideRepository.Update(target);
             return operation.Succeeded();
         }

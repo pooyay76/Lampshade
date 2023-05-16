@@ -1,9 +1,9 @@
-using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
+using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using Framework.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ShopManagement.Application.Contracts.ProductAgg;
+using ShopManagement.Application.Contracts.Product;
 using System.Collections.Generic;
 
 namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts

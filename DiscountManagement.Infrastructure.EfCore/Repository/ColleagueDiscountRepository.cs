@@ -1,6 +1,6 @@
-﻿using _0_Framework.Application;
-using DiscountManagement.Application.Contracts.ColleagueDiscountAgg;
+﻿using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Domain.ColleagueDiscountAgg;
+using Framework.Application;
 using Framework.Infrastructure;
 using ShopManagement.Infrastructure.EfCore;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace DiscountManagement.Infrastructure.EfCore.Repository
             return query.AsEnumerable().Join(products, x => x.ProductId, y => y.Id, (x, y) => new ColleagueDiscountViewModel
             {
                 CreationDate = x.CreationDateTime.ToFarsi(),
-                DiscountRate = x.DiscountRate,
+                DiscountPercentage = x.DiscountPercentage,
                 ProductId = x.ProductId,
                 ProductName = y.Name,
                 Name = x.Name,
